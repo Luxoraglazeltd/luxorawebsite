@@ -144,10 +144,10 @@ export default function Nav() {
             +254 799 928 056
           </a>
           <a
-            href="mailto:info@luxoraglaze.co.ke"
+            href="mailto:info@luxoraglazesystemltd.com"
             className="text-silver text-[13px] hover:text-gold"
           >
-            info@luxoraglaze.co.ke
+            info@luxoraglazesystemltd.com
           </a>
         </div>
       </div>

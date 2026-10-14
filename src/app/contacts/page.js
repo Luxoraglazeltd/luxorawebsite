@@ -25,8 +25,8 @@ const CONTACT_DETAILS = [
     icon: Mail,
     label: "Email",
     lines: [
-      { text: "info@luxoraglaze.co.ke", href: "mailto:info@luxoraglaze.co.ke" },
-      { text: "sales@luxoraglaze.co.ke", href: "mailto:sales@luxoraglaze.co.ke" },
+      { text: "info@luxoraglazesystemltd.com", href: "mailto:info@luxoraglazesystemltd.com" },
+      { text: "sales@luxoraglazesystemltd.com", href: "mailto:sales@luxoraglazesystemltd.com" },
     ],
   },
   {
