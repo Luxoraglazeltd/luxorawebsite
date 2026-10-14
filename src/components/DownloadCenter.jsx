@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { FileText, Download } from "lucide-react";
+import { FileText } from "lucide-react";
 import { client } from "@/sanity/lib/client";
+import DownloadConfirm from "@/components/DownloadConfirm";
 
 const CATEGORY_LABELS = {
   brochure: "Product Brochure",
@@ -9,7 +10,7 @@ const CATEGORY_LABELS = {
   warranty: "Warranty Information",
 };
 
-const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && defined(file.asset)] | order((category == "brochure") desc, _createdAt desc) [0...1] {
+const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && category == "warranty" && defined(file.asset)] | order(_createdAt desc) [0...1] {
   _id,
   title,
   category,
@@ -39,20 +40,13 @@ export default async function DownloadCenter() {
             <em className="text-gold not-italic">Company Documents</em>
           </h2>
         </div>
-        <Link
-          href="/downloads"
-          className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit transition-all duration-300 hover:bg-gold-lt"
-        >
-          View All Downloads <span>→</span>
-        </Link>
       </div>
 
       {docs.length > 0 && (
         <div className="grid grid-cols-1 max-w-md gap-4">
           {docs.map((doc) => (
-            <Link
+            <div
               key={doc._id}
-              href="/downloads"
               className="group bg-black p-7 md:p-8 transition-colors duration-300 hover:bg-[#161616] flex flex-col"
             >
               <div className="w-12 h-12 border border-gold/40 flex items-center justify-center mb-6 transition-colors duration-300 group-hover:border-gold">
@@ -71,14 +65,23 @@ export default async function DownloadCenter() {
                   {doc.description}
                 </p>
               )}
-              <span className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit mt-auto transition-all duration-300 group-hover:bg-gold-lt">
-                <Download className="w-3.5 h-3.5" strokeWidth={2} />
-                View in Download Centre
-              </span>
-            </Link>
+              <div className="mt-auto">
+                <DownloadConfirm
+                  title={doc.title}
+                  fileUrl={`/api/download?id=${encodeURIComponent(doc._id)}`}
+                />
+              </div>
+            </div>
           ))}
         </div>
       )}
+
+      <Link
+        href="/downloads"
+        className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit mt-8 transition-all duration-300 hover:bg-gold-lt"
+      >
+        View All Downloads <span>→</span>
+      </Link>
     </section>
   );
 }

@@ -79,7 +79,7 @@ export default async function DownloadsPage() {
             {grouped.map((group) => (
               <div key={group.key}>
                 <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-6">
-                  <span className="block w-8 h-px bg-gold shrink-0" />
+                  <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
                   {group.label}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
