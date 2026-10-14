@@ -74,14 +74,7 @@ export default async function DownloadsPage() {
 
       {/* DOWNLOADS BY CATEGORY */}
       <div className="px-5 md:px-15 py-16 md:py-24">
-        {grouped.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-10">
-            <FileText className="w-8 h-8 text-gold/30" strokeWidth={1.2} />
-            <p className="text-[13px] italic tracking-wide text-dim text-center">
-              Documents coming soon.
-            </p>
-          </div>
-        ) : (
+        {grouped.length > 0 && (
           <div className="max-w-260 mx-auto flex flex-col gap-14">
             {grouped.map((group) => (
               <div key={group.key}>

@@ -47,11 +47,7 @@ export default async function DownloadCenter() {
         </Link>
       </div>
 
-      {docs.length === 0 ? (
-        <p className="text-[13px] italic tracking-wide text-dim text-center py-10">
-          Documents coming soon.
-        </p>
-      ) : (
+      {docs.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
           {docs.map((doc) => (
             <Link
