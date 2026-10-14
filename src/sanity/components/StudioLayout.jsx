@@ -21,10 +21,18 @@ const PUBLISH_BUTTON_CSS = `
   }
 `
 
+// Sanity sizes its whole interface in rem, so raising the base size on phones
+// makes every label, field and button larger together. Phones only; desktop untouched.
+const PHONE_SCALE_CSS = `
+  @media (max-width: 767px) {
+    html { font-size: 120%; }
+  }
+`
+
 export function StudioLayout(props) {
   return (
     <>
-      <style>{PUBLISH_BUTTON_CSS}</style>
+      <style>{PUBLISH_BUTTON_CSS + PHONE_SCALE_CSS}</style>
       {props.renderDefault(props)}
     </>
   )
