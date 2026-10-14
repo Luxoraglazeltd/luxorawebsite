@@ -9,7 +9,7 @@ const CATEGORY_LABELS = {
   warranty: "Warranty Information",
 };
 
-const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && defined(file.asset)] | order(_createdAt desc) [0...3] {
+const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && defined(file.asset)] | order((category == "brochure") desc, _createdAt desc) [0...1] {
   _id,
   title,
   category,
@@ -48,7 +48,7 @@ export default async function DownloadCenter() {
       </div>
 
       {docs.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 max-w-md gap-4">
           {docs.map((doc) => (
             <Link
               key={doc._id}
