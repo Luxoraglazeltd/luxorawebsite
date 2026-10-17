@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import DownloadConfirm from "@/components/DownloadConfirm";
 
 const NAV_LINKS = [
   { href: "#products", label: "Products" },
@@ -29,23 +28,11 @@ const MOBILE_LINKS = [
   { href: "/contacts", label: "Contact Us" },
 ];
 
-export default function NavMenu({ downloadGroups = [] }) {
+export default function NavMenu() {
   const [open, setOpen] = useState(false);
   // The hamburger menu only exists on the main page
   const isHome = usePathname() === "/";
   const closeMenu = () => setOpen(false);
-
-  // Lets other buttons on the page open the menu straight at its Downloads section
-  useEffect(() => {
-    const openDownloads = () => {
-      setOpen(true);
-      setTimeout(() => {
-        document.getElementById("menu-downloads")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 150);
-    };
-    window.addEventListener("luxora:open-downloads", openDownloads);
-    return () => window.removeEventListener("luxora:open-downloads", openDownloads);
-  }, []);
 
   return (
     <>
@@ -170,33 +157,6 @@ export default function NavMenu({ downloadGroups = [] }) {
                 {link.label}
               </Link>
             )
-          )}
-
-          {downloadGroups.length > 0 && (
-            <div id="menu-downloads" className="px-7 pt-6 pb-2">
-              <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-4">
-                <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
-                Downloads
-              </div>
-              {downloadGroups.map((group) => (
-                <div key={group.key} className="mb-5">
-                  <div className="text-[9px] tracking-[2px] uppercase text-gold/70 mb-3">
-                    {group.label}
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    {group.items.map((doc) => (
-                      <div key={doc._id} className="flex flex-col gap-3">
-                        <span className="text-[13px] text-silver leading-[1.6]">{doc.title}</span>
-                        <DownloadConfirm
-                          title={doc.title}
-                          fileUrl={`/api/download?id=${encodeURIComponent(doc._id)}`}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
           )}
         </div>
 

@@ -1,5 +1,5 @@
-import { FileText } from "lucide-react";
-import OpenMenuButton from "@/components/OpenMenuButton";
+import Link from "next/link";
+import { FileText, ArrowRight } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import DownloadConfirm from "@/components/DownloadConfirm";
 
@@ -38,7 +38,13 @@ export default async function DownloadCenter() {
       </div>
 
       <div className="mb-8">
-        <OpenMenuButton>View All Catalogues & Documents</OpenMenuButton>
+        <Link
+          href="/downloads"
+          className="bg-gold text-black px-4 py-2.5 text-[9px] md:px-6 md:py-3 md:text-[10px] font-bold tracking-[1.5px] uppercase inline-flex items-center gap-2 transition-all duration-300 hover:bg-gold-lt"
+        >
+          View All Catalogues & Documents
+          <ArrowRight className="w-3 h-3" strokeWidth={2} />
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 max-w-md gap-4">
