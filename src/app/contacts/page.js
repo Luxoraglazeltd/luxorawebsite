@@ -40,7 +40,7 @@ const CONTACT_DETAILS = [
   {
     icon: Clock,
     label: "Working Hours",
-    lines: [{ text: "Monday – Saturday" }, { text: "8:00 AM – 6:00 PM EAT" }],
+    lines: [{ text: "Monday to Saturday" }, { text: "8:00 AM to 6:00 PM EAT" }],
   },
 ];
 

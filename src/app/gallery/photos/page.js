@@ -11,7 +11,7 @@ export const revalidate = 60;
 
 export const metadata = {
   alternates: { canonical: "/gallery/photos" },
-  title: "Gallery — Luxora Glaze System Limited",
+  title: "Gallery | Luxora Glaze System Limited",
   description:
     "Photo gallery of completed installations from Luxora Glaze System Limited.",
 };

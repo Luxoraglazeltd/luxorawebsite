@@ -21,7 +21,7 @@ export const SITE = {
     addressLocality: "Malindi",
     addressCountry: "KE",
   },
-  // From the Contacts page: Monday – Saturday, 8:00 AM – 6:00 PM EAT
+  // From the Contacts page: Monday to Saturday, 8:00 AM to 6:00 PM EAT
   hours: {
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     opens: "08:00",

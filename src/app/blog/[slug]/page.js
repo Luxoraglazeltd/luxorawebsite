@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await client.fetch(POST_QUERY, { slug });
 
-  if (!post) return { title: "Post Not Found — Luxora Glaze System Limited" };
+  if (!post) return { title: "Post Not Found | Luxora Glaze System Limited" };
 
   return {
-    title: `${post.title} — Luxora Glaze System Limited`,
+    title: `${post.title} | Luxora Glaze System Limited`,
     description: post.excerpt || "News and insights from Luxora Glaze System Limited.",
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {

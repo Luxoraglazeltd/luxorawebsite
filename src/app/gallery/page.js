@@ -6,7 +6,7 @@ import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
 export const metadata = {
   alternates: { canonical: "/gallery" },
-  title: "Projects & Gallery — Luxora Glaze System Limited",
+  title: "Projects & Gallery | Luxora Glaze System Limited",
   description:
     "Explore completed projects and browse our visual gallery from Luxora Glaze System Limited.",
 };
@@ -55,7 +55,7 @@ export default function GalleryHubPage() {
               Projects
             </h3>
             <p className="text-[13px] text-silver leading-[1.8] mb-6">
-              Detailed case studies of completed installations — project
+              Detailed case studies of completed installations, project
               type, location, scope, and products used.
             </p>
             <span className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit transition-all duration-300 group-hover:bg-gold-lt">
@@ -72,7 +72,7 @@ export default function GalleryHubPage() {
               Gallery
             </h3>
             <p className="text-[13px] text-silver leading-[1.8] mb-6">
-              A visual showcase of our finished work — browse photos of
+              A visual showcase of our finished work. Browse photos of
               completed installations.
             </p>
             <span className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit transition-all duration-300 group-hover:bg-gold-lt">

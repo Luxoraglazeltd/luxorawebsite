@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Download, X, FileText, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function DownloadConfirm({ title, fileUrl }) {
@@ -52,7 +53,8 @@ export default function DownloadConfirm({ title, fileUrl }) {
         Download PDF
       </button>
 
-      {open && (
+      {/* Portalled to <body> so the popup still covers the screen when the button sits inside the transformed menu panel */}
+      {open && createPortal(
         <div
           className="fixed inset-0 z-300 bg-black/90 flex items-center justify-center p-4"
           onClick={closeDialog}
@@ -159,7 +161,8 @@ export default function DownloadConfirm({ title, fileUrl }) {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

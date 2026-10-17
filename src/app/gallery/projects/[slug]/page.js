@@ -34,10 +34,10 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await client.fetch(PROJECT_QUERY, { slug });
 
-  if (!project) return { title: "Project Not Found — Luxora Glaze System Limited" };
+  if (!project) return { title: "Project Not Found | Luxora Glaze System Limited" };
 
   return {
-    title: `${project.title} — Luxora Glaze System Limited`,
+    title: `${project.title} | Luxora Glaze System Limited`,
     description: project.scope || "A completed project by Luxora Glaze System Limited.",
     alternates: { canonical: `/gallery/projects/${slug}` },
     openGraph: {
@@ -148,7 +148,7 @@ export default async function ProjectDetailPage({ params }) {
           {project.scope && (
             <div className="mb-10">
               <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-4">
-                <span className="block w-8 h-px bg-gold" />
+                <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
                 Project Scope
               </div>
               <p className="text-[15px] text-silver leading-[1.9]">{project.scope}</p>
@@ -158,7 +158,7 @@ export default async function ProjectDetailPage({ params }) {
           {project.productsUsed && project.productsUsed.length > 0 && (
             <div className="mb-10">
               <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-4">
-                <span className="block w-8 h-px bg-gold" />
+                <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
                 Products Used
               </div>
               <div className="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ export default async function ProjectDetailPage({ params }) {
           {project.gallery && project.gallery.length > 0 && (
             <div className="mb-10">
               <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-4">
-                <span className="block w-8 h-px bg-gold" />
+                <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
                 Gallery
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-0.5">
@@ -186,7 +186,7 @@ export default async function ProjectDetailPage({ params }) {
                   <div key={i} className="aspect-[4/3] overflow-hidden bg-black">
                     <img
                       src={compressedImage(img, 400, 300)}
-                      alt={`${project.title} — photo ${i + 1}`}
+                      alt={`${project.title}, photo ${i + 1}`}
                       className="w-full h-full object-cover"
                     />
                   </div>

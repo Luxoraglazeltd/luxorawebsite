@@ -11,7 +11,7 @@ export const revalidate = 60;
 
 export const metadata = {
   alternates: { canonical: "/downloads" },
-  title: "Download Centre — Luxora Glaze System Limited",
+  title: "Download Centre | Luxora Glaze System Limited",
   description:
     "Product brochures, technical data sheets, installation guides, and warranty information from Luxora Glaze System Limited.",
 };
@@ -33,7 +33,13 @@ const CATEGORY_LABELS = {
 const CATEGORY_ORDER = ["brochure", "datasheet", "installation", "warranty"];
 
 export default async function DownloadsPage() {
-  const docs = await client.fetch(DOWNLOADS_QUERY);
+  // The page must still load if Sanity is slow or unreachable
+  let docs = [];
+  try {
+    docs = await client.fetch(DOWNLOADS_QUERY);
+  } catch (err) {
+    console.error("Downloads page: Sanity fetch failed", err);
+  }
 
   const grouped = CATEGORY_ORDER.map((key) => ({
     key,

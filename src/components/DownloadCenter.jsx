@@ -1,19 +1,11 @@
-import Link from "next/link";
 import { FileText } from "lucide-react";
+import OpenMenuButton from "@/components/OpenMenuButton";
 import { client } from "@/sanity/lib/client";
 import DownloadConfirm from "@/components/DownloadConfirm";
 
-const CATEGORY_LABELS = {
-  brochure: "Product Brochure",
-  datasheet: "Technical Data Sheet",
-  installation: "Installation Guide",
-  warranty: "Warranty Information",
-};
-
-const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && category == "warranty" && defined(file.asset)] | order(_createdAt desc) [0...1] {
+const FEATURED_DOCS_QUERY = `*[_type == "downloadDocument" && category == "warranty" && defined(file.asset)] | order(coalesce(order, 999999) asc, _createdAt desc) [0...1] {
   _id,
   title,
-  category,
   description
 }`;
 
@@ -25,6 +17,9 @@ export default async function DownloadCenter() {
   } catch (err) {
     console.error("Download Centre teaser: Sanity fetch failed", err);
   }
+
+  // No warranty document in the CMS: hide the whole block
+  if (docs.length === 0) return null;
 
   return (
     <section className="bg-char px-5 md:px-15 py-16 md:py-24">
@@ -42,8 +37,11 @@ export default async function DownloadCenter() {
         </div>
       </div>
 
-      {docs.length > 0 && (
-        <div className="grid grid-cols-1 max-w-md gap-4">
+      <div className="mb-8">
+        <OpenMenuButton>View All Catalogues & Documents</OpenMenuButton>
+      </div>
+
+      <div className="grid grid-cols-1 max-w-md gap-4">
           {docs.map((doc) => (
             <div
               key={doc._id}
@@ -52,11 +50,6 @@ export default async function DownloadCenter() {
               <div className="w-12 h-12 border border-gold/40 flex items-center justify-center mb-6 transition-colors duration-300 group-hover:border-gold">
                 <FileText className="w-5 h-5 text-gold" strokeWidth={1.5} />
               </div>
-              {doc.category && (
-                <span className="text-[9px] tracking-wide text-gold/70 uppercase mb-2">
-                  {CATEGORY_LABELS[doc.category] || doc.category}
-                </span>
-              )}
               <h4 className="font-serif text-[20px] font-normal text-white mb-3">
                 {doc.title}
               </h4>
@@ -73,15 +66,7 @@ export default async function DownloadCenter() {
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      <Link
-        href="/downloads"
-        className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit mt-8 transition-all duration-300 hover:bg-gold-lt"
-      >
-        View All Downloads <span>→</span>
-      </Link>
+      </div>
     </section>
   );
 }

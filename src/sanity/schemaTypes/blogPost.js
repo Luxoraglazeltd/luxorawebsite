@@ -32,7 +32,7 @@ export default {
       type: "text",
       rows: 3,
       description:
-        "1–2 sentences summarising the post. This is what shows on Google and on the blog page (aim for under 160 characters).",
+        "1 to 2 sentences summarising the post. This is what shows on Google and on the blog page (aim for under 160 characters).",
       validation: (Rule) => [
         Rule.required(),
         Rule.max(160).warning("Google may cut this off. Try to keep it under 160 characters."),
