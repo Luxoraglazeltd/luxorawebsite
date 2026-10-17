@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import JsonLd from "@/components/JsonLd";
 import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
@@ -12,6 +13,7 @@ export const metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div>
+      <Nav />
       <JsonLd
         data={[
           webPageLd({ name: metadata.title, description: metadata.description, path: "/privacy-policy" }),
@@ -154,7 +156,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-[14px] text-silver leading-[1.9]">
               If you have questions about this Privacy Policy or how your
               information is handled, please{" "}
-              <Link href="/contacts" className="text-gold hover:text-gold-lt underline">
+              <Link href="/#cta" className="text-gold hover:text-gold-lt underline">
                 contact us
               </Link>
               .

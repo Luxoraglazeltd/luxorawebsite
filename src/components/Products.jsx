@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const CATEGORY_INTRO = {
   aluminium:
-    "Premium aluminium windows, doors, and curtain wall systems. Engineered to AAMA/ASTM standards with European hardware, thermal-break technology, and double tempered insulating glass units.",
+    "Premium aluminium windows, doors, and curtain wall systems. Engineered for performance with European hardware, thermal-break technology, and double tempered insulating glass units.",
   upvc: "Energy-efficient uPVC window and door systems for luxury residential, hospitality, and commercial projects. Superior thermal and acoustic performance, low maintenance, and long service life.",
   glass:
     "Large-scale glass solutions for facades, skylights, railings, and architectural feature glazing. IGU double glazing, tempered, laminated, Low-E, and custom architectural glass configurations.",

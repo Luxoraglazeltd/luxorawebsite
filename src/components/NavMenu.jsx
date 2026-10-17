@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { href: "/gallery", label: "Projects" },
   { href: "#why", label: "Why Luxora" },
   { href: "/blog", label: "Blog / News & Insight" },
-  { href: "/contacts", label: "Contact" },
+  { href: "/#cta", label: "Contact" },
 ];
 
 const MOBILE_LINKS = [
@@ -25,7 +25,7 @@ const MOBILE_LINKS = [
   { href: "/contacts", label: "Request a Quote" },
   { href: "/downloads", label: "Download Centre" },
   { href: "/blog", label: "Blog / News & Insight" },
-  { href: "/contacts", label: "Contact Us" },
+  { href: "/#cta", label: "Contact Us" },
 ];
 
 export default function NavMenu() {

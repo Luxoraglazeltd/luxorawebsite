@@ -11,7 +11,7 @@ const QUICK_LINKS = [
   { href: "/#installation", label: "Installation Process" },
   { href: "/downloads", label: "Download Centre" },
   { href: "/blog", label: "Blog / News & Insight" },
-  { href: "/contacts", label: "Contact Us" },
+  { href: "/#cta", label: "Contact Us" },
 ];
 
 const PRODUCT_LINKS = [

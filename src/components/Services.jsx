@@ -28,7 +28,7 @@ const SERVICES = [
   {
     icon: Wrench,
     title: "Professional Installation",
-    desc: "Certified installation teams following our 10-step process, referencing AAMA/ASTM practices where applicable.",
+    desc: "Professional installation teams following our 10-step process, with performance requirements confirmed for each project.",
   },
   {
     icon: Layers,

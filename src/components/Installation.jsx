@@ -54,7 +54,7 @@ const STEPS = [
 ];
 
 const BADGES = [
-  { icon: Shield, text: "AAMA / FGIA / ASTM", sub: "Referenced Practices" },
+  { icon: Shield, text: "Documented", sub: "Performance Data" },
   { icon: Waves, text: "Coastal Durability", sub: "Material Protection Focus" },
   { icon: Droplet, text: "Drainage &", sub: "Water Management" },
   { icon: CheckCircle2, text: "Quality Control", sub: "Every Installation" },
@@ -86,11 +86,10 @@ export default function Installation() {
         </div>
         <p className="text-[14px] text-silver leading-[1.8]">
           Luxora Glaze System Limited is committed to high-performance
-          fenestration using internationally recognized materials, testing
-          methods and professional installation practices. Applicable
-          systems may be specified to relevant AAMA/FGIA, ASTM and NFRC
-          requirements, supported by documented supplier test reports where
-          applicable.
+          fenestration, using quality materials and professional installation
+          practices. Performance requirements are confirmed for each project,
+          and values are stated only where supported by the supplier’s
+          technical documentation or tested performance reports.
         </p>
       </div>
 
