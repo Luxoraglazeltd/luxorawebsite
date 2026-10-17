@@ -53,8 +53,7 @@ export default async function BlogPage() {
             News & <em className="text-gold not-italic">Insights</em>
           </h1>
           <p className="text-[15px] text-silver max-w-140 leading-[1.85]">
-            Project updates, product launches, and glazing insights from the
-            Luxora team.
+            Project updates, product launches, and glazing insights.
           </p>
         </div>
       </div>
@@ -105,7 +104,7 @@ export default async function BlogPage() {
 
       {/* NEWSLETTER */}
       <div className="px-5 md:px-15 pb-20 md:pb-28">
-        <div className="max-w-80 mx-auto">
+        <div className="max-w-110 mx-auto">
           <NewsletterSignup compact />
         </div>
       </div>

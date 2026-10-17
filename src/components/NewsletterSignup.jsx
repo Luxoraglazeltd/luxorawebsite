@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function NewsletterSignup({ compact = false }) {
   const [email, setEmail] = useState("");
+  const [showForm, setShowForm] = useState(false);
   const [status, setStatus] = useState("idle"); // idle | submitting | success
 
   function handleSubmit(e) {
@@ -21,6 +22,76 @@ export default function NewsletterSignup({ compact = false }) {
       setStatus("success");
       setEmail("");
     }, 600);
+  }
+
+  // Compact (blog page): just a "Subscribe" link that reveals the email field when tapped
+  if (compact) {
+    return (
+      <div className="text-center">
+        {!showForm && status !== "success" && (
+          <button
+            type="button"
+            onClick={() => setShowForm(true)}
+            className="bg-black text-white border border-gold/30 px-4 py-2 text-[10px] font-bold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:border-gold hover:text-gold"
+          >
+            Subscribe
+          </button>
+        )}
+
+        {showForm && status !== "success" && (
+          <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-2 max-w-110 mx-auto pt-7 sm:pt-0 sm:pr-10">
+            <button
+              type="button"
+              onClick={() => { setShowForm(false); setEmail(""); }}
+              aria-label="Close"
+              className="absolute top-0 right-0 w-8 h-8 flex items-center justify-center text-gold text-base font-bold cursor-pointer transition-colors hover:text-gold-lt sm:top-1/2 sm:-translate-y-1/2"
+            >
+              ✕
+            </button>
+            <input
+              type="email"
+              required
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              className="flex-1 min-w-0 bg-black border border-border text-white px-3 py-2.5 text-xs outline-none transition-colors duration-200 focus:border-gold"
+            />
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="shrink-0 bg-black text-white border border-gold/30 px-4 py-2.5 text-[10px] leading-none font-bold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:border-gold hover:text-gold disabled:opacity-50 whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
+        )}
+
+        {status === "success" && (
+          <div className="flex items-center justify-center gap-3">
+            <p className="text-[11px] text-gold">Thanks for subscribing!</p>
+            <button
+              type="button"
+              onClick={() => { setStatus("idle"); setShowForm(false); }}
+              aria-label="Close"
+              className="w-8 h-8 flex items-center justify-center text-gold text-base font-bold cursor-pointer transition-colors hover:text-gold-lt"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
+        {showForm && status !== "success" && (
+          <p className="text-dim text-[9px] mt-2">
+            By subscribing, you agree to our{" "}
+            <Link href="/privacy-policy" className="text-gold hover:text-gold-lt underline">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -73,7 +144,7 @@ export default function NewsletterSignup({ compact = false }) {
             compact ? "py-2" : "py-3"
           }`}
         >
-          {status === "submitting" ? "..." : "Subscribe"}
+          Subscribe
         </button>
       </form>
 
