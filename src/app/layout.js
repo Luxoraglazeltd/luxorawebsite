@@ -28,7 +28,7 @@ export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Luxora Glaze System Limited | Engineering Light & Luxury",
   description:
-    "Premium aluminium windows, folding doors, glass facades, and architectural glazing systems in Malindi, Kenya.",
+    "Premium aluminium windows, folding doors, glass facades, and architectural glazing systems in Malindi, Kilifi County, Kenya.",
   applicationName: SITE.name,
   openGraph: {
     type: "website",
@@ -43,7 +43,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="en-KE"
       className={`${cormorant.variable} ${inter.variable} ${bebas.variable}`}
     >
       <body className="bg-black text-text antialiased">

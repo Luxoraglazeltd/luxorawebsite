@@ -126,21 +126,21 @@ export default function Footer() {
             <div className="flex gap-2.5 items-start">
               <Mail className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
               <div className="text-[12px] text-silver leading-[1.6]">
-                info@luxoraglazesystemltd.com
+                info@luxoraglazesystem.com
                 <br />
-                sales@luxoraglazesystemltd.com
+                sales@luxoraglazesystem.com
               </div>
             </div>
             <div className="flex gap-2.5 items-start">
               <Globe className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
               <div className="text-[12px] text-silver leading-[1.6]">
-                www.luxoraglazesystemltd.com
+                www.luxoraglazesystem.com
               </div>
             </div>
             <div className="flex gap-2.5 items-start">
               <MapPin className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
               <div className="text-[12px] text-silver leading-[1.6]">
-                Malindi, Kenya
+                Malindi, Kilifi County, Kenya
                 <br />
                 Serving Kenya & East Africa
               </div>

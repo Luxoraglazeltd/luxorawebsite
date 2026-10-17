@@ -12,7 +12,7 @@ export const metadata = {
   alternates: { canonical: "/contacts" },
   title: "Contact Us | Luxora Glaze System Limited",
   description:
-    "Get in touch with Luxora Glaze System Limited for aluminium, uPVC, and architectural glass solutions in Malindi, Kenya.",
+    "Get in touch with Luxora Glaze System Limited for aluminium, uPVC, and architectural glass solutions in Malindi, Kilifi County, Kenya.",
 };
 
 const CONTACT_DETAILS = [
@@ -25,8 +25,8 @@ const CONTACT_DETAILS = [
     icon: Mail,
     label: "Email",
     lines: [
-      { text: "info@luxoraglazesystemltd.com", href: "mailto:info@luxoraglazesystemltd.com" },
-      { text: "sales@luxoraglazesystemltd.com", href: "mailto:sales@luxoraglazesystemltd.com" },
+      { text: "info@luxoraglazesystem.com", href: "mailto:info@luxoraglazesystem.com" },
+      { text: "sales@luxoraglazesystem.com", href: "mailto:sales@luxoraglazesystem.com" },
     ],
   },
   {
@@ -34,7 +34,7 @@ const CONTACT_DETAILS = [
     label: "Location",
     lines: [
       { text: "Along Malindi-Mombasa Road" },
-      { text: "Malindi Mall, Malindi, Kenya" },
+      { text: "Malindi, Kilifi County, Kenya" },
     ],
   },
   {

@@ -23,8 +23,12 @@ const SLUGS_QUERY = `{
 }`;
 
 export default async function sitemap() {
+  const now = new Date();
   const staticEntries = STATIC_PATHS.map((path) => ({
     url: `${SITE_URL}${path === "/" ? "" : path}`,
+    lastModified: now,
+    changeFrequency: path === "/blog" || path === "/gallery" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : path === "/privacy-policy" ? 0.3 : 0.8,
   }));
 
   // If Sanity can't be reached, still serve the static pages instead of failing

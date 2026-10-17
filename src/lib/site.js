@@ -3,7 +3,7 @@
 // If a detail changes on the site, change it here too.
 
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.luxoraglazesystemltd.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.luxoraglazesystem.com"
 ).replace(/\/$/, "");
 
 export const SITE = {
@@ -15,10 +15,11 @@ export const SITE = {
     "Luxora Glaze System Limited is a premium architectural glazing and building-envelope company serving residential, commercial, hospitality, and architectural projects across Kenya and East Africa.",
   telephone: "+254799928056",
   whatsapp: "https://wa.me/254799928056",
-  emails: ["info@luxoraglazesystemltd.com", "sales@luxoraglazesystemltd.com"],
+  emails: ["info@luxoraglazesystem.com", "sales@luxoraglazesystem.com"],
   address: {
-    streetAddress: "Along Malindi-Mombasa Road, Malindi Mall",
+    streetAddress: "Along Malindi-Mombasa Road",
     addressLocality: "Malindi",
+    addressRegion: "Kilifi County",
     addressCountry: "KE",
   },
   // From the Contacts page: Monday to Saturday, 8:00 AM to 6:00 PM EAT
