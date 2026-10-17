@@ -159,18 +159,6 @@ export default function NavMenu() {
             )
           )}
         </div>
-
-        <div className="px-7 py-6 border-t border-gold/10 flex flex-col gap-2">
-          <a href="tel:+254799928056" className="text-silver text-[13px] hover:text-gold">
-            +254 799 928 056
-          </a>
-          <a
-            href="mailto:info@luxoraglazesystemltd.com"
-            className="text-silver text-[13px] hover:text-gold"
-          >
-            info@luxoraglazesystemltd.com
-          </a>
-        </div>
       </div>
       </>
       )}
