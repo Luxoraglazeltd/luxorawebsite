@@ -58,12 +58,11 @@ export default defineConfig({
     actions: (prev) =>
       prev.map((action) => (action.action === 'publish' ? withPublishChecks(action) : action)),
   },
-  // Every image upload goes through the compressing source; drag-and-drop is switched
-  // off because it would bypass compression and store the full-size original.
+  // The Upload button opens the compressing "Upload photo" dialog. Drag-and-drop is
+  // enabled, but a photo dropped straight onto the field skips compression.
   form: {
     image: {
       assetSources: () => [compressedImageSource],
-      directUploads: false,
     },
   },
   // Add and edit the content schema in the './sanity/schemaTypes' folder
