@@ -29,6 +29,7 @@ export default function NewsletterSignup({ compact = false }) {
     return (
       <div className="text-center">
         {!showForm && status !== "success" && (
+          <div className="flex flex-col items-center gap-1.5">
           <button
             type="button"
             onClick={() => setShowForm(true)}
@@ -36,6 +37,8 @@ export default function NewsletterSignup({ compact = false }) {
           >
             Subscribe
           </button>
+          <p className="text-dim text-[10px]">For more updates</p>
+          </div>
         )}
 
         {showForm && status !== "success" && (
