@@ -42,16 +42,18 @@ export function organizationLd() {
         availableLanguage: "English",
       },
     ],
-    // Product names, descriptions and groups come straight from src/data/products.js (what the site displays). No prices are published, so none are listed.
+    // Names, descriptions and groups come straight from src/data/products.js (what the site displays).
+    // Listed as Services, not Product: no prices or reviews are published, and Google requires
+    // "offers", "review" or "aggregateRating" on every Product.
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Luxora Glazing Products",
+      name: "Luxora Glazing Products and Services",
       itemListElement: CATEGORIES.map((cat) => ({
         "@type": "OfferCatalog",
         name: cat.label,
         itemListElement: PRODUCTS.filter((p) => p.category === cat.id).map((p) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Product", name: p.name, description: p.desc },
+          itemOffered: { "@type": "Service", name: p.name, description: p.desc },
         })),
       })),
     },
