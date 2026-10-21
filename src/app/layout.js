@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import SiteChrome from "@/components/SiteChrome";
+import Analytics from "@/components/Analytics";
 import { SITE, SITE_URL } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
@@ -52,6 +53,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <FloatingWhatsApp />
         </SiteChrome>
+        <Analytics />
       </body>
     </html>
   );
