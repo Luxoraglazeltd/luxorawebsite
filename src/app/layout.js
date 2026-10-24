@@ -27,9 +27,9 @@ const bebas = Bebas_Neue({
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Luxora Glaze System Limited: Engineering Light & Luxury",
+  title: "Luxora Glaze System Limited",
   description:
-    "Aluminium and uPVC windows, doors, glass facades and architectural glazing in Malindi, Kilifi County. Supply and installation across Kenya and East Africa.",
+    "Luxora Glaze System Limited, based in Malindi, Kilifi County, supplies and installs aluminium and uPVC windows, doors and glass across Kenya and East Africa.",
   applicationName: SITE.name,
   openGraph: {
     type: "website",

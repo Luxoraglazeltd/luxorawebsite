@@ -12,7 +12,7 @@ export const SITE = {
   logo: `${SITE_URL}/images/brand/logo.png`,
   image: `${SITE_URL}/images/hero/hero1.jpg`,
   description:
-    "Luxora Glaze System Limited is a premium architectural glazing and building-envelope company serving residential, commercial, hospitality, and architectural projects across Kenya and East Africa.",
+    "Luxora Glaze System Limited is a premium architectural glazing and building-envelope company based in Malindi, Kilifi County, Kenya. It supplies and installs aluminium and uPVC windows and doors, architectural glass, shower enclosures, skylights and garage doors for residential, commercial and hospitality projects across Kenya and East Africa.",
   telephone: "+254799928056",
   whatsapp: "https://wa.me/254799928056",
   // Social pages. Add the other networks here as the client creates them.

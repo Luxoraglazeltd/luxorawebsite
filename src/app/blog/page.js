@@ -10,7 +10,7 @@ export const metadata = {
   alternates: { canonical: "/blog" },
   title: "Blog, News and Insights: Luxora Glaze System Limited",
   description:
-    "Project updates, product news and practical glazing advice from Luxora Glaze System Limited in Malindi, Kenya.",
+    "Project updates, product news and practical glazing advice from Luxora Glaze System Limited, Kenya.",
 };
 
 // Re-check Sanity at most once a minute so newly published posts appear without a redeploy
