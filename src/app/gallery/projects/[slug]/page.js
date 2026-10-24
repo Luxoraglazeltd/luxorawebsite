@@ -34,10 +34,10 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await client.fetch(PROJECT_QUERY, { slug });
 
-  if (!project) return { title: "Project Not Found | Luxora Glaze System Limited" };
+  if (!project) return { title: "Project Not Found: Luxora Glaze System Limited" };
 
   return {
-    title: `${project.title} | Luxora Glaze System Limited`,
+    title: `${project.title}: Luxora Glaze System Limited`,
     description: project.scope || "A completed project by Luxora Glaze System Limited.",
     alternates: { canonical: `/gallery/projects/${slug}` },
     openGraph: {

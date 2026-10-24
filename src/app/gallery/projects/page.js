@@ -10,9 +10,9 @@ export const revalidate = 60;
 
 export const metadata = {
   alternates: { canonical: "/gallery/projects" },
-  title: "Projects | Luxora Glaze System Limited",
+  title: "Projects: Luxora Glaze System Limited",
   description:
-    "Completed project case studies from Luxora Glaze System Limited: aluminium, uPVC, and glass installations across Kenya.",
+    "Read case studies of completed aluminium, uPVC and glass installations by Luxora Glaze System Limited across Kenya.",
 };
 
 const PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)] | order(completedAt desc) {

@@ -8,9 +8,9 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const metadata = {
   alternates: { canonical: "/blog" },
-  title: "Blog / News & Insight | Luxora Glaze System Limited",
+  title: "Blog, News and Insights: Luxora Glaze System Limited",
   description:
-    "News, project updates, and glazing insights from Luxora Glaze System Limited.",
+    "Project updates, product news and practical glazing advice from Luxora Glaze System Limited in Malindi, Kenya.",
 };
 
 // Re-check Sanity at most once a minute so newly published posts appear without a redeploy

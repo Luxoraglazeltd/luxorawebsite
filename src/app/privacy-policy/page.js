@@ -5,9 +5,9 @@ import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
 export const metadata = {
   alternates: { canonical: "/privacy-policy" },
-  title: "Privacy Policy | Luxora Glaze System Limited",
+  title: "Privacy Policy: Luxora Glaze System Limited",
   description:
-    "How Luxora Glaze System Limited collects, uses, and protects your personal information.",
+    "Read how Luxora Glaze System Limited collects, uses and protects your personal information.",
 };
 
 export default function PrivacyPolicyPage() {

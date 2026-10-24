@@ -5,9 +5,9 @@ import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
 export const metadata = {
   alternates: { canonical: "/product-list" },
-  title: "Product Catalogue | Luxora Glaze System Limited",
+  title: "Product Catalogue: Luxora Glaze System Limited",
   description:
-    "A complete catalogue of all aluminium, uPVC, and glass products offered by Luxora Glaze System Limited.",
+    "Browse the full Luxora range of aluminium and uPVC windows and doors, architectural glass, shower enclosures, skylights and garage doors.",
 };
 
 const CATEGORIES = [

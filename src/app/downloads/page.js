@@ -11,9 +11,9 @@ export const revalidate = 60;
 
 export const metadata = {
   alternates: { canonical: "/downloads" },
-  title: "Download Centre | Luxora Glaze System Limited",
+  title: "Download Centre: Luxora Glaze System Limited",
   description:
-    "Product brochures, technical data sheets, installation guides, and warranty information from Luxora Glaze System Limited.",
+    "Download Luxora product brochures, technical data sheets, installation guides and warranty information as PDF files.",
 };
 
 const DOWNLOADS_QUERY = `*[_type == "downloadDocument" && defined(file.asset)] | order(_createdAt desc) {

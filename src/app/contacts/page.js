@@ -10,9 +10,9 @@ import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 export const metadata = {
   alternates: { canonical: "/contacts" },
-  title: "Contact Us | Luxora Glaze System Limited",
+  title: "Contact Us: Luxora Glaze System Limited",
   description:
-    "Get in touch with Luxora Glaze System Limited for aluminium, uPVC, and architectural glass solutions in Malindi, Kilifi County, Kenya.",
+    "Contact Luxora Glaze System Limited in Malindi, Kilifi County, for a free consultation and quote on aluminium, uPVC and architectural glass.",
 };
 
 const CONTACT_DETAILS = [

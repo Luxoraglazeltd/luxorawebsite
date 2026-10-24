@@ -5,9 +5,9 @@ import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
 export const metadata = {
   alternates: { canonical: "/about" },
-  title: "About Us | Luxora Glaze System Limited",
+  title: "About Us: Luxora Glaze System Limited",
   description:
-    "Luxora Glaze System Limited: architectural glazing engineered for modern living. Learn our story, vision, mission, and values.",
+    "Learn about Luxora Glaze System Limited, a Malindi glazing company built on precision, integrity and quality, with a systems approach to every project.",
 };
 
 const VALUES = [

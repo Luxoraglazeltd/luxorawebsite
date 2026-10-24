@@ -6,9 +6,9 @@ import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
 
 export const metadata = {
   alternates: { canonical: "/gallery" },
-  title: "Projects & Gallery | Luxora Glaze System Limited",
+  title: "Projects and Gallery: Luxora Glaze System Limited",
   description:
-    "Explore completed projects and browse our visual gallery from Luxora Glaze System Limited.",
+    "Explore completed projects by Luxora Glaze System Limited and browse our gallery of finished glazing installations across Kenya.",
 };
 
 export default function GalleryHubPage() {

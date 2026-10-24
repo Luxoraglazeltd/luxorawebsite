@@ -10,9 +10,9 @@ export const revalidate = 60;
 
 export const metadata = {
   alternates: { canonical: "/gallery/photos" },
-  title: "Gallery | Luxora Glaze System Limited",
+  title: "Gallery: Luxora Glaze System Limited",
   description:
-    "Photo gallery of completed installations from Luxora Glaze System Limited.",
+    "Browse photos of completed aluminium, uPVC and glass installations by Luxora Glaze System Limited.",
 };
 
 // Images with a Display Order come first (lowest number first); the rest follow, newest upload first.
