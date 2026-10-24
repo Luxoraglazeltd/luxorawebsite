@@ -30,7 +30,6 @@ const PRODUCT_LINKS = [
 const SOCIALS = [
   { label: "Facebook", icon: "facebook", href: SITE.socials.facebook },
   { label: "Instagram", icon: "instagram", href: SITE.socials.instagram },
-  { label: "LinkedIn", icon: "linkedin" },
   { label: "TikTok", icon: "tiktok" },
   { label: "YouTube", icon: "youtube" },
 ];
