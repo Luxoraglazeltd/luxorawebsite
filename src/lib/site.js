@@ -15,6 +15,11 @@ export const SITE = {
     "Luxora Glaze System Limited is a premium architectural glazing and building-envelope company serving residential, commercial, hospitality, and architectural projects across Kenya and East Africa.",
   telephone: "+254799928056",
   whatsapp: "https://wa.me/254799928056",
+  // Social pages. Add the other networks here as the client creates them.
+  socials: {
+    facebook: "https://www.facebook.com/people/Luxora-Glaze-System-Limited/61595258996964/",
+    instagram: "https://www.instagram.com/luxoraglazesystem_limited",
+  },
   emails: ["info@luxoraglazesystem.com", "sales@luxoraglazesystem.com"],
   address: {
     streetAddress: "Along Malindi-Mombasa Road",

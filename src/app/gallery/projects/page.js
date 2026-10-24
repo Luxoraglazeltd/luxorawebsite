@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FolderOpen } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { compressedImage } from "@/sanity/lib/imageHelpers";
 import Nav from "@/components/Nav";
@@ -33,7 +32,13 @@ const PROJECT_TYPE_LABELS = {
 };
 
 export default async function ProjectsPage() {
-  const projects = await client.fetch(PROJECTS_QUERY);
+  // The page must still load if Sanity is slow or unreachable
+  let projects = [];
+  try {
+    projects = await client.fetch(PROJECTS_QUERY);
+  } catch (err) {
+    console.error("Projects page: Sanity fetch failed", err);
+  }
 
   return (
     <div>
@@ -71,14 +76,7 @@ export default async function ProjectsPage() {
 
       {/* PROJECTS GRID */}
       <div className="px-5 md:px-15 py-16 md:py-24">
-        {projects.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-10">
-            <FolderOpen className="w-8 h-8 text-gold/30" strokeWidth={1.2} />
-            <p className="text-[13px] italic tracking-wide text-center text-dim">
-              Project case studies coming soon.
-            </p>
-          </div>
-        ) : (
+        {projects.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 max-w-220 mx-auto items-stretch">
             {projects.map((project) => (
               <Link

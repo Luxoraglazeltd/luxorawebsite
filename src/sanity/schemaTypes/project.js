@@ -22,8 +22,7 @@ export default {
       name: "location",
       title: "Location",
       type: "string",
-      description: "e.g. Malindi, Kenya",
-      validation: (Rule) => Rule.required(),
+      description: "Optional. e.g. Malindi, Kenya",
     },
     {
       name: "projectType",
@@ -36,7 +35,7 @@ export default {
           { title: "Hospitality", value: "hospitality" },
         ],
       },
-      validation: (Rule) => Rule.required(),
+      description: "Optional.",
     },
     {
       name: "mainImage",

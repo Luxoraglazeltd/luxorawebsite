@@ -7,7 +7,13 @@ const AUTOPLAY_INTERVAL = 7500; // ms between auto-advances
 const PAUSE_DURATION = 6000; // ms to stay paused after manual interaction
 
 export default function ProductCard({ product }) {
-  const { slug, name, desc, imgCount } = product;
+  const { slug, name, desc, imgCount: plannedCount } = product;
+  const allImages = Array.from({ length: plannedCount }, (_, i) => `/images/products/${slug}/product${i + 1}.jpg`);
+  // Only pictures that really exist are shown, so a not-yet-uploaded file never gives a blank slide
+  const [missing, setMissing] = useState([]);
+  const [ratio, setRatio] = useState(null); // width / height of the first picture
+  const images = allImages.filter((src) => !missing.includes(src));
+  const imgCount = images.length;
   const [index, setIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -31,6 +37,19 @@ export default function ProductCard({ product }) {
     pauseAutoplay();
   };
 
+  // Check each picture once: note the ones that fail to load, and the shape of the first
+  useEffect(() => {
+    allImages.forEach((src, i) => {
+      const probe = new Image();
+      probe.onload = () => {
+        if (i === 0 || (i > 0 && ratio === null)) setRatio((r) => r ?? probe.naturalWidth / probe.naturalHeight);
+      };
+      probe.onerror = () => setMissing((m) => (m.includes(src) ? m : [...m, src]));
+      probe.src = src;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, plannedCount]);
+
   // Autoplay: advances automatically unless paused or the lightbox is open
   useEffect(() => {
     if (imgCount <= 1) return;
@@ -51,8 +70,12 @@ export default function ProductCard({ product }) {
     };
   }, []);
 
-  const currentImage = `/images/products/${slug}/product${index + 1}.jpg`;
-  const images = Array.from({ length: imgCount }, (_, i) => `/images/products/${slug}/product${i + 1}.jpg`);
+  const safeIndex = imgCount === 0 ? 0 : Math.min(index, imgCount - 1);
+  const currentImage = images[safeIndex];
+
+  // Every card keeps the same frame size. Tall (portrait) pictures are shown whole inside it,
+  // with a soft blurred copy of the picture filling the sides, instead of making the card taller.
+  const isPortrait = ratio !== null && ratio < 1;
 
   return (
     <div
@@ -64,17 +87,27 @@ export default function ProductCard({ product }) {
 
       {/* IMAGE CAROUSEL */}
       <div
-        className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-black cursor-pointer"
+        className="relative w-full aspect-square md:aspect-[4/3] overflow-hidden bg-black cursor-pointer"
         onClick={() => setLightboxOpen(true)}
       >
         {images.map((src, i) => (
           <div
             key={src}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1800 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-opacity duration-1800 ease-in-out ${
+              i === safeIndex ? "opacity-100 prod-pan" : "opacity-0"
             }`}
-            style={{ backgroundImage: `url('${src}')` }}
-          />
+          >
+            {isPortrait && (
+              <div
+                className="absolute inset-0 bg-cover bg-center blur-2xl scale-125 opacity-40"
+                style={{ backgroundImage: `url('${src}')` }}
+              />
+            )}
+            <div
+              className={`absolute inset-0 bg-center bg-no-repeat ${isPortrait ? "bg-contain" : "bg-cover"}`}
+              style={{ backgroundImage: `url('${src}')` }}
+            />
+          </div>
         ))}
 
         {imgCount > 1 && (
@@ -82,14 +115,14 @@ export default function ProductCard({ product }) {
             <button
               onClick={goPrev}
               aria-label="Previous image"
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors duration-200 z-20"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-8 md:h-8 bg-black/60 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors duration-200 z-20"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={2} />
             </button>
             <button
               onClick={goNext}
               aria-label="Next image"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors duration-200 z-20"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-8 md:h-8 bg-black/60 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors duration-200 z-20"
             >
               <ChevronRight className="w-4 h-4" strokeWidth={2} />
             </button>
@@ -99,7 +132,7 @@ export default function ProductCard({ product }) {
                 <span
                   key={i}
                   className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${
-                    i === index ? "bg-gold" : "bg-white/40"
+                    i === safeIndex ? "bg-gold" : "bg-white/40"
                   }`}
                 />
               ))}

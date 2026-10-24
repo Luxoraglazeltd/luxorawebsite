@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, Globe, MapPin } from "lucide-react";
+import SocialIcon from "@/components/icons/SocialIcon";
+import { SITE } from "@/lib/site";
 
 const QUICK_LINKS = [
   { href: "/", label: "Home" },
@@ -26,11 +28,11 @@ const PRODUCT_LINKS = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", short: "f" },
-  { label: "Instagram", short: "ig" },
-  { label: "LinkedIn", short: "in" },
-  { label: "TikTok", short: "tk" },
-  { label: "YouTube", short: "yt" },
+  { label: "Facebook", icon: "facebook", href: SITE.socials.facebook },
+  { label: "Instagram", icon: "instagram", href: SITE.socials.instagram },
+  { label: "LinkedIn", icon: "linkedin" },
+  { label: "TikTok", icon: "tiktok" },
+  { label: "YouTube", icon: "youtube" },
 ];
 
 export default function Footer() {
@@ -59,15 +61,19 @@ export default function Footer() {
             <br />
             Serving Kenya & East Africa
           </div>
-          <div className="flex gap-2.5 mt-5">
+          <h5 className="text-[10px] font-semibold tracking-[2.5px] uppercase text-gold mt-6 mb-3">
+            Follow Us On
+          </h5>
+          <div className="flex gap-2.5">
             {SOCIALS.map((social) => (
               <a
                 key={social.label}
-                href="#"
+                href={social.href || "#"}
+                {...(social.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 aria-label={social.label}
-                className="w-8 h-8 border border-gold/25 flex items-center justify-center text-gold text-[11px] font-semibold lowercase transition-all duration-300 hover:bg-gold hover:text-black"
+                className="w-10 h-10 border border-gold/25 flex items-center justify-center text-gold transition-all duration-300 hover:bg-gold hover:text-black"
               >
-                {social.short}
+                <SocialIcon name={social.icon} className="w-4 h-4" />
               </a>
             ))}
           </div>

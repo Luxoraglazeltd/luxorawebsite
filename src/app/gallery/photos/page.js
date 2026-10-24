@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Image as ImageIcon } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { compressedImage } from "@/sanity/lib/imageHelpers";
 import Nav from "@/components/Nav";
@@ -25,7 +24,13 @@ const GALLERY_QUERY = `*[_type == "galleryImage" && defined(image.asset)] | orde
 }`;
 
 export default async function PhotosPage() {
-  const images = await client.fetch(GALLERY_QUERY);
+  // The page must still load if Sanity is slow or unreachable
+  let images = [];
+  try {
+    images = await client.fetch(GALLERY_QUERY);
+  } catch (err) {
+    console.error("Gallery page: Sanity fetch failed", err);
+  }
 
   return (
     <div>
@@ -63,14 +68,7 @@ export default async function PhotosPage() {
 
       {/* PHOTO GRID */}
       <div className="px-5 md:px-15 py-16 md:py-24">
-        {images.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-10">
-            <ImageIcon className="w-8 h-8 text-gold/30" strokeWidth={1.2} />
-            <p className="text-[13px] italic tracking-wide text-center text-dim">
-              Photos coming soon.
-            </p>
-          </div>
-        ) : (
+        {images.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-260 mx-auto">
             {images.map((item) => (
               <div

@@ -15,6 +15,7 @@ export function organizationLd() {
     logo: SITE.logo,
     image: SITE.image,
     description: SITE.description,
+    sameAs: Object.values(SITE.socials),
     telephone: SITE.telephone,
     email: SITE.emails[0],
     address: { "@type": "PostalAddress", ...SITE.address },

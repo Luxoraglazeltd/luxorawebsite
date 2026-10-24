@@ -12,14 +12,14 @@ export const PRODUCTS = [
     slug: "aluminium-windows",
     name: "Aluminium Windows",
     desc: "Luxora aluminium windows combine clean architectural lines, durability and design flexibility for modern buildings. Configurations can include casement, fixed, sliding and other architectural window formats, with thermal-break options where applicable. Systems are selected according to the project's design, glazing, environmental exposure and performance requirements.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "aluminium",
     slug: "aluminium-doors",
     name: "Aluminium Doors",
     desc: "Luxora aluminium doors provide durable, contemporary solutions for entrances, internal transitions and large glazed openings. Configurations, finishes, glazing and hardware can be tailored to residential, hospitality and commercial architecture, with selection guided by opening size, use and project requirements.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "aluminium",
