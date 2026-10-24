@@ -15,8 +15,42 @@ const CATEGORY_INTRO = {
     "Complementary products completing the Luxora offering: premium shower enclosures and architectural garage doors for luxury residential and hospitality projects.",
 };
 
+// Aluminium and uPVC are each split into Windows and Doors, so the two categories are clear
+// and the specific door types are listed under Doors.
+const GROUPS = {
+  aluminium: [
+    {
+      id: "windows",
+      label: "Windows",
+      blurb: "Casement, fixed, sliding and other architectural window formats.",
+      slugs: ["aluminium-windows"],
+    },
+    {
+      id: "doors",
+      label: "Doors",
+      blurb: "Entrance, sliding, lift and slide, folding and pivot door systems.",
+      slugs: ["aluminium-doors", "sliding-doors", "lift-slide-doors", "folding-doors", "pivot-doors"],
+    },
+  ],
+  upvc: [
+    {
+      id: "windows",
+      label: "Windows",
+      blurb: "Casement, fixed and sliding window formats.",
+      slugs: ["upvc-windows"],
+    },
+    {
+      id: "doors",
+      label: "Doors",
+      blurb: "Entrance doors and sliding systems for patios and balconies.",
+      slugs: ["upvc-doors", "sliding-upvc-systems"],
+    },
+  ],
+};
+
 export default function Products() {
   const [active, setActive] = useState("aluminium");
+  const [groupByCategory, setGroupByCategory] = useState({ aluminium: "doors", upvc: "doors" });
 
   // Deep links like /#product-sliding-doors: switch to the product's category, then scroll to it
   useEffect(() => {
@@ -25,6 +59,8 @@ export default function Products() {
       const product = match && PRODUCTS.find((p) => p.slug === match[1]);
       if (!product) return;
       setActive(product.category);
+      const owner = (GROUPS[product.category] || []).find((g) => g.slugs.includes(product.slug));
+      if (owner) setGroupByCategory((current) => ({ ...current, [product.category]: owner.id }));
       setTimeout(() => {
         document
           .getElementById(`product-${product.slug}`)
@@ -36,7 +72,11 @@ export default function Products() {
     return () => window.removeEventListener("hashchange", goToHashProduct);
   }, []);
 
-  const filtered = PRODUCTS.filter((p) => p.category === active);
+  const groups = GROUPS[active];
+  const activeGroup = groups?.find((g) => g.id === groupByCategory[active]);
+  const filtered = activeGroup
+    ? activeGroup.slugs.map((slug) => PRODUCTS.find((p) => p.slug === slug))
+    : PRODUCTS.filter((p) => p.category === active);
   const activeLabel = CATEGORIES.find((c) => c.id === active)?.label;
 
   return (
@@ -69,7 +109,11 @@ export default function Products() {
         {CATEGORIES.map((cat) => (
           <button
             key={cat.id}
-            onClick={() => setActive(cat.id)}
+            onClick={() => {
+              setActive(cat.id);
+              // Opening a category always starts on Doors, until the visitor taps Windows
+              setGroupByCategory((current) => ({ ...current, [cat.id]: "doors" }));
+            }}
             className={`px-4 md:px-5.5 py-2.5 text-[11px] font-medium tracking-[1.5px] uppercase border transition-all duration-300 cursor-pointer ${
               active === cat.id
                 ? "bg-gold border-gold text-black"
@@ -91,6 +135,32 @@ export default function Products() {
           {CATEGORY_INTRO[active]}
         </p>
       </div>
+
+      {/* WINDOWS OR DOORS (Aluminium and uPVC) */}
+      {groups && activeGroup && (
+        <div className="mb-8 md:mb-10">
+          <div className="flex gap-1.5">
+            {groups.map((g) => (
+              <button
+                key={g.id}
+                type="button"
+                onClick={() => setGroupByCategory((current) => ({ ...current, [active]: g.id }))}
+                aria-pressed={activeGroup.id === g.id}
+                className={`px-4 py-2 text-[10px] font-semibold tracking-[1.5px] uppercase border transition-all duration-300 cursor-pointer ${
+                  activeGroup.id === g.id
+                    ? "bg-gold border-gold text-black"
+                    : "bg-transparent border-border text-silver hover:border-gold hover:text-gold"
+                }`}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[12px] text-dim leading-[1.7] mt-3 max-w-120">
+            {activeGroup.blurb}
+          </p>
+        </div>
+      )}
 
       {/* GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">

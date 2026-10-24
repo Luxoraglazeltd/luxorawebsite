@@ -26,7 +26,7 @@ export const PRODUCTS = [
     slug: "sliding-doors",
     name: "Sliding Doors",
     desc: "Luxora sliding doors create practical, elegant connections between interior and exterior spaces while making efficient use of available openings. They are suited to homes, villas, balconies, terraces, hotels and commercial spaces, with glass, frame, hardware and configuration selected for each project.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "aluminium",
