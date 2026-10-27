@@ -83,7 +83,7 @@ export default async function DownloadsPage() {
         {grouped.length > 0 && (
           <div className="max-w-260 mx-auto flex flex-col gap-14">
             {grouped.map((group) => (
-              <div key={group.key}>
+              <div key={group.key} id={group.key} className="scroll-mt-24 md:scroll-mt-28">
                 <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[4px] uppercase text-gold mb-6">
                   <span className="text-gold text-[13px] tracking-[2px] leading-none whitespace-nowrap shrink-0">★ ★ ★</span>
                   {group.label}

@@ -4,7 +4,11 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { Download, X, FileText, CheckCircle2, AlertCircle } from "lucide-react";
 
-export default function DownloadConfirm({ title, fileUrl }) {
+const DEFAULT_BUTTON_CLASS =
+  "bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit transition-all duration-300 hover:bg-gold-lt";
+
+// label, buttonClassName and hideIcon are optional: with none of them this is the usual "Download PDF" button.
+export default function DownloadConfirm({ title, fileUrl, label = "Download PDF", buttonClassName = DEFAULT_BUTTON_CLASS, hideIcon = false }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("confirm"); // confirm | loading | success | error
 
@@ -47,10 +51,10 @@ export default function DownloadConfirm({ title, fileUrl }) {
       <button
         type="button"
         onClick={openDialog}
-        className="bg-gold text-black text-[10px] font-bold tracking-[2px] uppercase inline-flex items-center justify-center gap-2 px-5 py-3 w-fit transition-all duration-300 hover:bg-gold-lt"
+        className={buttonClassName}
       >
-        <Download className="w-3.5 h-3.5" strokeWidth={2} />
-        Download PDF
+        {!hideIcon && <Download className="w-3.5 h-3.5" strokeWidth={2} />}
+        {label}
       </button>
 
       {/* Portalled to <body> so the popup still covers the screen when the button sits inside the transformed menu panel */}

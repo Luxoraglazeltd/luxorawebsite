@@ -33,7 +33,7 @@ export const PRODUCTS = [
     slug: "lift-slide-doors",
     name: "Lift & Slide Doors",
     desc: "Luxora Lift & Slide doors are designed for expansive architectural openings where wide views, indoor-outdoor connection and smooth operation are priorities. They are particularly suited to luxury residences, villas, hospitality spaces and projects where large glazed openings are central to the architecture.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "aluminium",

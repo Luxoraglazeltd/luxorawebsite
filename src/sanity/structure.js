@@ -14,24 +14,24 @@ export const structure = (S) =>
             .title('Download Documents')
             .items([
               S.listItem()
-                .title('Product Brochures')
+                .title('Product Brochure')
                 .child(
                   S.documentTypeList('downloadDocument')
-                    .title('Product Brochures')
+                    .title('Product Brochure')
                     .filter('_type == "downloadDocument" && category == "brochure"')
                 ),
               S.listItem()
-                .title('Technical Data Sheets')
+                .title('Technical Data Sheet')
                 .child(
                   S.documentTypeList('downloadDocument')
-                    .title('Technical Data Sheets')
+                    .title('Technical Data Sheet')
                     .filter('_type == "downloadDocument" && category == "datasheet"')
                 ),
               S.listItem()
-                .title('Installation Guides')
+                .title('Installation Guide')
                 .child(
                   S.documentTypeList('downloadDocument')
-                    .title('Installation Guides')
+                    .title('Installation Guide')
                     .filter('_type == "downloadDocument" && category == "installation"')
                 ),
               S.listItem()

@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import DownloadConfirm from "@/components/DownloadConfirm";
 import Nav from "@/components/Nav";
 import JsonLd from "@/components/JsonLd";
 import { webPageLd, breadcrumbLd } from "@/lib/jsonld";
+
+// Re-check Sanity at most once a minute so a newly uploaded brochure is picked up without a redeploy
+export const revalidate = 60;
+
+const BROCHURE_QUERY = `*[_type == "downloadDocument" && category == "brochure" && defined(file.asset)] | order(coalesce(order, 999999) asc, _createdAt desc) [0] {
+  _id,
+  title
+}`;
 
 export const metadata = {
   alternates: { canonical: "/product-list" },
@@ -83,7 +93,18 @@ const CATEGORIES = [
   },
 ];
 
-export default function ProductListPage() {
+export default async function ProductListPage() {
+  // The page must still load if Sanity is slow or unreachable
+  let brochure = null;
+  try {
+    brochure = await client.fetch(BROCHURE_QUERY);
+  } catch (err) {
+    console.error("Product list: Sanity fetch failed", err);
+  }
+
+  const brochureButtonClass =
+    "bg-gold text-black px-10 py-4 text-[11px] font-bold tracking-[2.5px] uppercase inline-block cursor-pointer transition-all duration-300 hover:bg-gold-lt";
+
   return (
     <div>
       <Nav />
@@ -140,12 +161,19 @@ export default function ProductListPage() {
 
         {/* CTA */}
         <div className="text-center mt-20 md:mt-24">
-          <Link
-            href="/downloads"
-            className="bg-gold text-black px-10 py-4 text-[11px] font-bold tracking-[2.5px] uppercase inline-block transition-all duration-300 hover:bg-gold-lt"
-          >
-            Click Here for Our Product Catalogue
-          </Link>
+          {brochure ? (
+            <DownloadConfirm
+              title={brochure.title}
+              fileUrl={`/api/download?id=${encodeURIComponent(brochure._id)}`}
+              label="Click Here for Our Product Brochure"
+              buttonClassName={brochureButtonClass}
+              hideIcon
+            />
+          ) : (
+            <Link href="/downloads#brochure" className={brochureButtonClass}>
+              Click Here for Our Product Brochure
+            </Link>
+          )}
         </div>
       </div>
     </div>
