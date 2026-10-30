@@ -35,6 +35,7 @@ const CONTACT_DETAILS = [
     lines: [
       { text: "Along Malindi-Mombasa Road" },
       { text: "Malindi, Kilifi County, Kenya" },
+      { text: "Postal: P.O. Box 220-80108, Kilifi, Kenya" },
     ],
   },
   {

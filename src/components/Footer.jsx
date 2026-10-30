@@ -147,6 +147,8 @@ export default function Footer() {
               <div className="text-[12px] text-silver leading-[1.6]">
                 Malindi, Kilifi County, Kenya
                 <br />
+                P.O. Box 220-80108, Kilifi, Kenya
+                <br />
                 Serving Kenya & East Africa
               </div>
             </div>

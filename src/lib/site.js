@@ -23,6 +23,8 @@ export const SITE = {
   emails: ["info@luxoraglazesystem.com", "sales@luxoraglazesystem.com"],
   address: {
     streetAddress: "Along Malindi-Mombasa Road",
+    postOfficeBoxNumber: "220",
+    postalCode: "80108",
     addressLocality: "Malindi",
     addressRegion: "Kilifi County",
     addressCountry: "KE",
