@@ -56,7 +56,7 @@ export const PRODUCTS = [
     slug: "upvc-windows",
     name: "uPVC Windows",
     desc: "Luxora uPVC windows offer a low-maintenance alternative for projects seeking practical, modern window systems with strong weather and comfort considerations. Configurations may include casement, fixed and sliding formats where available, with glazing and hardware selected according to project requirements.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "upvc",
