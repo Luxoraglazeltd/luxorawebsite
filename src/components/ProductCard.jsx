@@ -73,9 +73,8 @@ export default function ProductCard({ product }) {
   const safeIndex = imgCount === 0 ? 0 : Math.min(index, imgCount - 1);
   const currentImage = images[safeIndex];
 
-  const isPortrait = ratio !== null && ratio < 1;
-  // uPVC pictures are shown whole with no spare space: the frame takes the shape of the picture
-  const frameStyle = category === "upvc" && ratio !== null ? { aspectRatio: ratio } : undefined;
+  // Tall pictures, and every uPVC picture, are shown whole in the same-size frame, with a blurred copy filling the rest
+  const isPortrait = ratio !== null && (ratio < 1 || category === "upvc");
 
   return (
     <div
@@ -88,7 +87,6 @@ export default function ProductCard({ product }) {
       {/* IMAGE CAROUSEL */}
       <div
         className="relative w-full aspect-square md:aspect-[4/3] overflow-hidden bg-black cursor-pointer"
-        style={frameStyle}
         onClick={() => setLightboxOpen(true)}
       >
         {images.map((src, i) => (

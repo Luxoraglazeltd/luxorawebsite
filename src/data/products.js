@@ -63,14 +63,21 @@ export const PRODUCTS = [
     slug: "upvc-doors",
     name: "uPVC Doors",
     desc: "Luxora uPVC doors provide practical, clean-lined solutions for residential and selected commercial applications. They can be configured for different opening requirements and paired with suitable glazing, hardware and finishes to balance appearance, functionality and everyday durability.",
-    imgCount: 0,
+    imgCount: 3,
   },
   {
     category: "upvc",
     slug: "sliding-upvc-systems",
     name: "Sliding uPVC Systems",
     desc: "Luxora sliding uPVC systems provide convenient access to patios, balconies and other exterior spaces while maintaining a clean contemporary appearance. System configuration, glazing, hardware and opening dimensions are selected to suit the building and intended use.",
-    imgCount: 5,
+    imgCount: 0,
+  },
+  {
+    category: "upvc",
+    slug: "folding-upvc-doors",
+    name: "Folding uPVC Doors",
+    desc: "Luxora folding uPVC doors use multiple panels that fold and stack to the side, opening up large sections of a wall to patios, gardens and terraces while keeping the low-maintenance benefits of uPVC. They suit homes, apartments and selected commercial spaces. Panel configuration, glazing, hardware and weatherproofing are selected according to the opening size and project requirements.",
+    imgCount: 1,
   },
 
   // ARCHITECTURAL GLASS

@@ -42,8 +42,8 @@ const GROUPS = {
     {
       id: "doors",
       label: "Doors",
-      blurb: "Entrance doors and sliding systems for patios and balconies.",
-      slugs: ["upvc-doors", "sliding-upvc-systems"],
+      blurb: "Entrance, sliding and folding door systems for patios and balconies.",
+      slugs: ["upvc-doors", "sliding-upvc-systems", "folding-upvc-doors"],
     },
   ],
 };
