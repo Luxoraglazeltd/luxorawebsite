@@ -7,7 +7,7 @@ const AUTOPLAY_INTERVAL = 7500; // ms between auto-advances
 const PAUSE_DURATION = 6000; // ms to stay paused after manual interaction
 
 export default function ProductCard({ product }) {
-  const { slug, name, desc, imgCount: plannedCount } = product;
+  const { slug, category, name, desc, imgCount: plannedCount } = product;
   const allImages = Array.from({ length: plannedCount }, (_, i) => `/images/products/${slug}/product${i + 1}.jpg`);
   // Only pictures that really exist are shown, so a not-yet-uploaded file never gives a blank slide
   const [missing, setMissing] = useState([]);
@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
     pauseAutoplay();
   };
 
-  // Check each picture once: note the ones that fail to load, and the shape of the first
+  // Check each picture once and note the ones that fail to load
   useEffect(() => {
     allImages.forEach((src, i) => {
       const probe = new Image();
@@ -73,9 +73,9 @@ export default function ProductCard({ product }) {
   const safeIndex = imgCount === 0 ? 0 : Math.min(index, imgCount - 1);
   const currentImage = images[safeIndex];
 
-  // Every card keeps the same frame size. Tall (portrait) pictures are shown whole inside it,
-  // with a soft blurred copy of the picture filling the sides, instead of making the card taller.
   const isPortrait = ratio !== null && ratio < 1;
+  // uPVC pictures are shown whole with no spare space: the frame takes the shape of the picture
+  const frameStyle = category === "upvc" && ratio !== null ? { aspectRatio: ratio } : undefined;
 
   return (
     <div
@@ -88,6 +88,7 @@ export default function ProductCard({ product }) {
       {/* IMAGE CAROUSEL */}
       <div
         className="relative w-full aspect-square md:aspect-[4/3] overflow-hidden bg-black cursor-pointer"
+        style={frameStyle}
         onClick={() => setLightboxOpen(true)}
       >
         {images.map((src, i) => (

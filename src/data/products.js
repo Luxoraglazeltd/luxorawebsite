@@ -70,7 +70,7 @@ export const PRODUCTS = [
     slug: "sliding-upvc-systems",
     name: "Sliding uPVC Systems",
     desc: "Luxora sliding uPVC systems provide convenient access to patios, balconies and other exterior spaces while maintaining a clean contemporary appearance. System configuration, glazing, hardware and opening dimensions are selected to suit the building and intended use.",
-    imgCount: 0,
+    imgCount: 5,
   },
 
   // ARCHITECTURAL GLASS
