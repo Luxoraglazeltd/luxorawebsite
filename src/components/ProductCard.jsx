@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const AUTOPLAY_INTERVAL = 7500; // ms between auto-advances
 const PAUSE_DURATION = 6000; // ms to stay paused after manual interaction
+const WIDE_RATIO = 1.6; // pictures wider than this are shown whole, never cropped
 
 export default function ProductCard({ product }) {
   const { slug, category, name, desc, imgCount: plannedCount } = product;
@@ -12,6 +13,7 @@ export default function ProductCard({ product }) {
   // Only pictures that really exist are shown, so a not-yet-uploaded file never gives a blank slide
   const [missing, setMissing] = useState([]);
   const [ratio, setRatio] = useState(null); // width / height of the first picture
+  const [wide, setWide] = useState([]); // very wide pictures, which would lose too much if cropped
   const images = allImages.filter((src) => !missing.includes(src));
   const imgCount = images.length;
   const [index, setIndex] = useState(0);
@@ -42,7 +44,9 @@ export default function ProductCard({ product }) {
     allImages.forEach((src, i) => {
       const probe = new Image();
       probe.onload = () => {
-        if (i === 0 || (i > 0 && ratio === null)) setRatio((r) => r ?? probe.naturalWidth / probe.naturalHeight);
+        const shape = probe.naturalWidth / probe.naturalHeight;
+        if (i === 0) setRatio(shape);
+        if (shape > WIDE_RATIO) setWide((w) => (w.includes(src) ? w : [...w, src]));
       };
       probe.onerror = () => setMissing((m) => (m.includes(src) ? m : [...m, src]));
       probe.src = src;
@@ -73,8 +77,10 @@ export default function ProductCard({ product }) {
   const safeIndex = imgCount === 0 ? 0 : Math.min(index, imgCount - 1);
   const currentImage = images[safeIndex];
 
-  // Tall pictures, and every uPVC picture, are shown whole in the same-size frame, with a blurred copy filling the rest
-  const isPortrait = ratio !== null && (ratio < 1 || category === "upvc");
+  // Tall and very wide pictures, and every uPVC and glass picture, are shown whole in the same-size frame,
+  // with a blurred copy filling the rest
+  const showWhole = category === "upvc" || category === "glass";
+  const isPortrait = ratio !== null && (ratio < 1 || showWhole);
 
   return (
     <div
@@ -89,25 +95,28 @@ export default function ProductCard({ product }) {
         className="relative w-full aspect-square md:aspect-[4/3] overflow-hidden bg-black cursor-pointer"
         onClick={() => setLightboxOpen(true)}
       >
-        {images.map((src, i) => (
+        {images.map((src, i) => {
+          const whole = isPortrait || wide.includes(src);
+          return (
           <div
             key={src}
             className={`absolute inset-0 transition-opacity duration-1800 ease-in-out ${
               i === safeIndex ? "opacity-100 prod-pan" : "opacity-0"
             }`}
           >
-            {isPortrait && (
+            {whole && (
               <div
                 className="absolute inset-0 bg-cover bg-center blur-2xl scale-125 opacity-40"
                 style={{ backgroundImage: `url('${src}')` }}
               />
             )}
             <div
-              className={`absolute inset-0 bg-center bg-no-repeat ${isPortrait ? "bg-contain" : "bg-cover"}`}
+              className={`absolute inset-0 bg-center bg-no-repeat ${whole ? "bg-contain" : "bg-cover"}`}
               style={{ backgroundImage: `url('${src}')` }}
             />
           </div>
-        ))}
+          );
+        })}
 
         {imgCount > 1 && (
           <>

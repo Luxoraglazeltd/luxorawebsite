@@ -86,7 +86,7 @@ export const PRODUCTS = [
     slug: "igu-glazing",
     name: "IGU / Double Glazing",
     desc: "Insulated Glass Units (IGUs), commonly known as double glazing when two panes are used, consist of multiple panes separated by an insulating cavity and sealed as a unit. Depending on configuration, IGUs can help improve thermal performance, indoor comfort, acoustic performance and energy efficiency. Glass build-up and cavity specification should be selected for the specific project.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "glass",
