@@ -77,7 +77,7 @@ export const PRODUCTS = [
     slug: "folding-upvc-doors",
     name: "Folding uPVC Doors",
     desc: "Luxora folding uPVC doors use multiple panels that fold and stack to the side, opening up large sections of a wall to patios, gardens and terraces while keeping the low-maintenance benefits of uPVC. They suit homes, apartments and selected commercial spaces. Panel configuration, glazing, hardware and weatherproofing are selected according to the opening size and project requirements.",
-    imgCount: 1,
+    imgCount: 3,
   },
 
   // ARCHITECTURAL GLASS
