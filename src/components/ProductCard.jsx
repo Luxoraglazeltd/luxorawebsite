@@ -97,11 +97,13 @@ export default function ProductCard({ product }) {
       >
         {images.map((src, i) => {
           const whole = isPortrait || wide.includes(src);
+          // The slow zoom would crop the edges, so pictures that must be seen in full (uPVC, glass, very wide) stay still
+          const still = showWhole || wide.includes(src);
           return (
           <div
             key={src}
             className={`absolute inset-0 transition-opacity duration-1800 ease-in-out ${
-              i === safeIndex ? "opacity-100 prod-pan" : "opacity-0"
+              i === safeIndex ? `opacity-100${still ? "" : " prod-pan"}` : "opacity-0"
             }`}
           >
             {whole && (

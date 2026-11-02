@@ -93,7 +93,7 @@ export const PRODUCTS = [
     slug: "low-e-glass",
     name: "Low-E Glass",
     desc: "Low-E, or low-emissivity, glass incorporates a specialized coating designed to influence heat transfer and solar energy through the glazing. When correctly specified as part of a complete window or door system, it can support improved thermal performance and indoor comfort. Selection should consider climate, orientation, solar exposure and overall glazing configuration.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "glass",
