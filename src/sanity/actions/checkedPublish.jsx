@@ -32,7 +32,10 @@ export function withPublishChecks(originalPublishAction) {
   function CheckedPublishAction(props) {
     const original = originalPublishAction(props)
     const schema = useSchema()
-    const {validation} = useValidationStatus(props.id, props.type)
+    // Validate the draft (the version being edited), never the published copy. Actions are given
+    // the published id, which Studio would read as "check the published version", so an old
+    // published post missing a newer required field could never be fixed by editing it.
+    const {validation} = useValidationStatus(`drafts.${props.id}`, props.type, true)
     const client = useClient({apiVersion})
     const [open, setOpen] = useState(false)
     const [sizes, setSizes] = useState({}) // image asset id -> file size in bytes
