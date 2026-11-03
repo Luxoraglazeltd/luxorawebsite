@@ -128,9 +128,10 @@ export const PRODUCTS = [
   {
     category: "specialty",
     slug: "shower-enclosures",
+    fit: "whole", // pictures carry captions at the edges, so show them uncropped
     name: "Frameless Shower Systems",
     desc: "Luxora Frameless Shower Systems are designed to create clean, contemporary bathroom spaces with minimal visual framing. Solutions may include fixed glass panels, hinged shower doors, sliding shower systems and complete frameless enclosures, using appropriate safety glass and shower hardware. This category is separate from Folding / Bi-Fold Door Systems.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "specialty",
@@ -142,6 +143,7 @@ export const PRODUCTS = [
   {
     category: "specialty",
     slug: "custom-glazing-solutions",
+    noImage: true, // a bespoke category with no standard picture, so it shows as a text card
     name: "Custom Glazing Solutions",
     desc: "Some architectural projects require glazing solutions that do not fit a standard product category. Luxora works with homeowners, architects, developers, contractors and project teams to understand the opening, design intent, material requirements and installation conditions, then develop an appropriate glazing approach.",
     imgCount: 0,

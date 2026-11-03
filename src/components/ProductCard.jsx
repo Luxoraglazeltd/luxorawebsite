@@ -8,7 +8,7 @@ const PAUSE_DURATION = 6000; // ms to stay paused after manual interaction
 const WIDE_RATIO = 1.6; // pictures wider than this are shown whole, never cropped
 
 export default function ProductCard({ product }) {
-  const { slug, category, name, desc, imgCount: plannedCount } = product;
+  const { slug, category, fit, noImage, name, desc, imgCount: plannedCount } = product;
   const allImages = Array.from({ length: plannedCount }, (_, i) => `/images/products/${slug}/product${i + 1}.jpg`);
   // Only pictures that really exist are shown, so a not-yet-uploaded file never gives a blank slide
   const [missing, setMissing] = useState([]);
@@ -79,7 +79,7 @@ export default function ProductCard({ product }) {
 
   // Tall and very wide pictures, and every uPVC and glass picture, are shown whole in the same-size frame,
   // with a blurred copy filling the rest
-  const showWhole = category === "upvc" || category === "glass";
+  const showWhole = category === "upvc" || category === "glass" || fit === "whole";
   const isPortrait = ratio !== null && (ratio < 1 || showWhole);
 
   return (
@@ -90,7 +90,8 @@ export default function ProductCard({ product }) {
       {/* gold hover underline */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gold to-transparent scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100 z-10" />
 
-      {/* IMAGE CAROUSEL */}
+      {/* IMAGE CAROUSEL (left out for cards that are text only) */}
+      {!noImage && (
       <div
         className="relative w-full aspect-square md:aspect-[4/3] overflow-hidden bg-black cursor-pointer"
         onClick={() => setLightboxOpen(true)}
@@ -150,10 +151,11 @@ export default function ProductCard({ product }) {
           </>
         )}
       </div>
+      )}
 
       {/* INFO */}
       <div className="p-6 md:p-7">
-        <h3 className="font-serif text-[22px] font-normal text-white mb-2.5">
+        <h3 className={`font-serif text-[22px] font-normal mb-2.5 ${noImage ? "text-gold" : "text-white"}`}>
           {name}
         </h3>
         <p className="text-[13px] text-silver leading-[1.8] mb-6">{desc}</p>
