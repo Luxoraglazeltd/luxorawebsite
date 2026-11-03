@@ -26,6 +26,8 @@ function collectImages(value, path = [], found = []) {
 // Wraps Sanity's Publish action. Normally Publish is greyed out and does nothing when a
 // required field is empty, so clients don't know why. Here the button stays clickable and,
 // if something is missing, a pop-up lists exactly which fields need filling in.
+// It only steps in while there are unpublished edits, and only checks photos that are new
+// since the last publish, so editing an already-published post never raises old issues.
 export function withPublishChecks(originalPublishAction) {
   function CheckedPublishAction(props) {
     const original = originalPublishAction(props)
@@ -35,8 +37,12 @@ export function withPublishChecks(originalPublishAction) {
     const [open, setOpen] = useState(false)
     const [sizes, setSizes] = useState({}) // image asset id -> file size in bytes
 
-    const doc = props.draft || props.published
-    const images = doc ? collectImages(doc) : []
+    // Only photos added or swapped in the current edits are checked. Photos that are already
+    // on the published version were accepted before and are never flagged again.
+    const publishedRefs = new Set(props.published ? collectImages(props.published).map((i) => i.ref) : [])
+    const images = props.draft
+      ? collectImages(props.draft).filter((image) => !publishedRefs.has(image.ref))
+      : []
     const imageIds = [...new Set(images.map((image) => image.ref))].sort()
     const imageIdsKey = imageIds.join('|')
 
@@ -57,6 +63,9 @@ export function withPublishChecks(originalPublishAction) {
     }, [client, imageIdsKey])
 
     if (!original) return original
+
+    // Nothing has been edited since the last publish: leave Sanity's own button alone
+    if (!props.draft) return original
 
     const errors = validation.filter((marker) => marker.level === 'error')
     const documentType = schema.get(props.type)
