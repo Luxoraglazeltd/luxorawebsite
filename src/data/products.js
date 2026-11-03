@@ -114,14 +114,14 @@ export const PRODUCTS = [
     slug: "glass-railing",
     name: "Glass Railings",
     desc: "Luxora glass railings provide a contemporary alternative to traditional railing systems while maintaining visual openness and clean architectural lines. They can be used for balconies, staircases, terraces, pool areas and commercial spaces, with glass, support and fixing solutions selected according to the application and structural requirements.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "glass",
     slug: "skylights",
     name: "Skylights",
     desc: "Luxora skylight solutions introduce natural light into buildings and can become a defining architectural feature. Successful skylight design requires coordinated consideration of glass selection, structural requirements, drainage, sealing, weatherproofing and installation conditions.",
-    imgCount: 0,
+    imgCount: 5,
   },
 
   // SPECIALTY PRODUCTS
