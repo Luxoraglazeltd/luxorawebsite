@@ -100,14 +100,14 @@ export const PRODUCTS = [
     slug: "tempered-glass",
     name: "Tempered Glass",
     desc: "Tempered glass is heat-treated to provide greater strength than ordinary annealed glass and is widely used where safety and strength are important. Applications can include doors, shower enclosures, partitions, railings and architectural glazing. Appropriate thickness and configuration should be determined by the application and project requirements.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "glass",
     slug: "laminated-glass",
     name: "Laminated Glass",
     desc: "Laminated glass consists of two or more glass layers bonded with an interlayer. If the glass breaks, the interlayer helps hold the fragments together, providing important safety and security characteristics. It can also be considered where acoustic, security or architectural requirements make laminated construction appropriate.",
-    imgCount: 0,
+    imgCount: 5,
   },
   {
     category: "glass",
