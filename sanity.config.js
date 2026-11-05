@@ -14,6 +14,8 @@ import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 import {compressedImageSource} from './src/sanity/components/CompressedImageSource'
+import {CleanupTool} from './src/sanity/components/CleanupTool'
+import {TrashIcon} from '@sanity/icons'
 import {StudioLayout} from './src/sanity/components/StudioLayout'
 import {withPublishChecks} from './src/sanity/actions/checkedPublish'
 
@@ -65,6 +67,11 @@ export default defineConfig({
       assetSources: () => [compressedImageSource],
     },
   },
+  // Lets the team remove uploaded files and photos that nothing uses any more
+  tools: (prev) => [
+    ...prev,
+    {name: 'cleanup', title: 'Clean up files', icon: TrashIcon, component: CleanupTool},
+  ],
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   plugins: [
