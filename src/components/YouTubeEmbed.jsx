@@ -44,7 +44,7 @@ export default function YouTubeEmbed({ url, title = "Luxora video" }) {
             />
             <span className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/10" />
             <span className="absolute inset-0 flex items-center justify-center">
-              <span className="w-16 h-16 md:w-20 md:h-20 bg-gold text-black flex items-center justify-center transition-colors duration-300 group-hover:bg-gold-lt">
+              <span className="w-16 h-16 md:w-20 md:h-20 bg-[#FF0000] text-white flex items-center justify-center transition-colors duration-300 group-hover:bg-[#CC0000]">
                 <Play className="w-7 h-7 md:w-8 md:h-8" fill="currentColor" strokeWidth={0} />
               </span>
             </span>

@@ -39,20 +39,6 @@ export default {
       ],
     },
     {
-      name: "body",
-      title: "Body",
-      type: "array",
-      of: [{ type: "block" }],
-    },
-    {
-      name: "publishedAt",
-      title: "Published Date",
-      type: "datetime",
-      description: "Defaults to today. Used on the post and by Google.",
-      initialValue: () => new Date().toISOString(),
-      validation: (Rule) => Rule.required(),
-    },
-    {
       name: "videoUrl",
       title: "YouTube Video (optional)",
       type: "url",
@@ -65,6 +51,20 @@ export default {
             /(youtube\.com|youtu\.be)/.test(url) || "Please paste a YouTube link"
           );
         }),
+    },
+    {
+      name: "body",
+      title: "Body",
+      type: "array",
+      of: [{ type: "block" }],
+    },
+    {
+      name: "publishedAt",
+      title: "Published Date",
+      type: "datetime",
+      description: "Defaults to today. Used on the post and by Google.",
+      initialValue: () => new Date().toISOString(),
+      validation: (Rule) => Rule.required(),
     },
   ],
 };
