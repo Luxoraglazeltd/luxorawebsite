@@ -31,7 +31,7 @@ const SOCIALS = [
   { label: "Facebook", icon: "facebook", href: SITE.socials.facebook },
   { label: "Instagram", icon: "instagram", href: SITE.socials.instagram },
   { label: "TikTok", icon: "tiktok", href: SITE.socials.tiktok },
-  { label: "YouTube", icon: "youtube" },
+  { label: "YouTube", icon: "youtube", href: SITE.socials.youtube },
   { label: "LinkedIn", icon: "linkedin" },
 ];
 

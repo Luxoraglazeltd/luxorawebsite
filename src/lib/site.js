@@ -20,6 +20,7 @@ export const SITE = {
     facebook: "https://www.facebook.com/people/Luxora-Glaze-System-Limited/61595258996964/",
     instagram: "https://www.instagram.com/luxoraglazesystem_limited",
     tiktok: "https://www.tiktok.com/@luxoraglaze",
+    youtube: "https://www.youtube.com/@luxoraglaze_system",
   },
   emails: ["info@luxoraglazesystem.com", "sales@luxoraglazesystem.com"],
   address: {
