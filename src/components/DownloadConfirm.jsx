@@ -21,26 +21,18 @@ export default function DownloadConfirm({ title, fileUrl, label = "Download PDF"
     setOpen(false);
   }
 
-  async function handleConfirm() {
+  // The browser downloads the file itself (the server sends it as an attachment), so phones
+  // show their own download notification. A fetch + blob save is silent on many phones.
+  function handleConfirm() {
     setStatus("loading");
     try {
-      const res = await fetch(fileUrl);
-      if (!res.ok) throw new Error("Download failed");
-
-      const blob = await res.blob();
-      const match = /filename="?([^"]+)"?/i.exec(res.headers.get("Content-Disposition") || "");
-      const fileName = match ? match[1] : "luxora-document.pdf";
-
-      const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = fileName;
+      link.href = fileUrl;
+      link.download = "";
       document.body.appendChild(link);
       link.click();
       link.remove();
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-
-      setStatus("success");
+      setTimeout(() => setStatus("success"), 1200);
     } catch {
       setStatus("error");
     }
