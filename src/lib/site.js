@@ -3,7 +3,7 @@
 // If a detail changes on the site, change it here too.
 
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.luxoraglazesystem.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://luxoraglazesystem.com"
 ).replace(/\/$/, "");
 
 export const SITE = {
