@@ -1,8 +1,22 @@
+import { sendMail, escapeHtml, oneLine, tooManyRequests } from "@/lib/mail";
+
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10MB
 
 export async function POST(request) {
   try {
+    if (tooManyRequests(request)) {
+      return Response.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const formData = await request.formData();
+
+    // Hidden field real visitors never fill in; bots do. Pretend it worked and send nothing.
+    if (formData.get("website")) {
+      return Response.json({ success: true }, { status: 200 });
+    }
 
     const fullName = formData.get("fullName");
     const company = formData.get("company");
@@ -22,7 +36,7 @@ export async function POST(request) {
     const attachment = formData.get("attachment");
 
     // Basic required-field validation
-    if (!fullName || !email || !message) {
+    if (!fullName || !email) {
       return Response.json(
         { error: "Missing required fields." },
         { status: 400 }
@@ -30,40 +44,66 @@ export async function POST(request) {
     }
 
     // Server-side file size re-check: never trust the frontend check alone
-    if (attachment && typeof attachment === "object" && attachment.size > 0) {
-      if (attachment.size > MAX_FILE_BYTES) {
-        return Response.json(
-          { error: "File too large. Maximum size is 10MB." },
-          { status: 400 }
-        );
-      }
+    const hasFile = attachment && typeof attachment === "object" && attachment.size > 0;
+    if (hasFile && attachment.size > MAX_FILE_BYTES) {
+      return Response.json(
+        { error: "File too large. Maximum size is 10MB." },
+        { status: 400 }
+      );
     }
 
-    // ── TODO: EMAIL SENDING NOT YET CONNECTED ──
-    // Once a live business inbox + Resend API key are ready, this section
-    // will forward the submission as an email to RFQ_TO_EMAIL, attaching
-    // the file directly (no storage; nothing is saved to disk here).
-    //
-    // For now, log the submission server-side so nothing is lost during
-    // testing, and respond successfully so the form's UI works end-to-end.
-    console.log("RFQ submission received (email sending not yet connected):", {
-      fullName,
-      company,
-      email,
-      phone,
-      projectName,
-      projectLocation,
-      projectType,
-      projectStage,
-      productsRequired,
-      quantitiesDimensions,
-      glassPreference,
-      colourFinish,
-      subject,
-      message,
-      siteAssessment,
-      attachment: attachment?.name || "none",
+    const rows = [
+      ["Name", fullName],
+      ["Company", company],
+      ["Email", email],
+      ["Phone / WhatsApp", phone],
+      ["Project name", projectName],
+      ["Project location", projectLocation],
+      ["Project type", projectType],
+      ["Project stage", projectStage],
+      ["Products / systems required", productsRequired],
+      ["Quantities / dimensions", quantitiesDimensions],
+      ["Glass preference", glassPreference],
+      ["Colour / finish", colourFinish],
+      ["Subject", subject],
+      ["On-site assessment requested", siteAssessment ? "Yes" : "No"],
+      ["Attachment", hasFile ? attachment.name : "None"],
+    ].filter(([, value]) => value);
+
+    const note = message || "(none provided)";
+
+    const text =
+      rows.map(([label, value]) => `${label}: ${value}`).join("\n") +
+      `\n\nAdditional requirements:\n${note}`;
+
+    const html =
+      `<table cellpadding="6" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">` +
+      rows
+        .map(
+          ([label, value]) =>
+            `<tr><td style="color:#666;vertical-align:top"><b>${escapeHtml(label)}</b></td><td>${escapeHtml(value)}</td></tr>`
+        )
+        .join("") +
+      `</table><p style="font-family:Arial,sans-serif;font-size:14px"><b>Additional requirements</b><br>${escapeHtml(note).replace(/\n/g, "<br>")}</p>`;
+
+    const attachments = hasFile
+      ? [{ filename: attachment.name, content: Buffer.from(await attachment.arrayBuffer()) }]
+      : [];
+
+    const result = await sendMail({
+      subject: `Website enquiry: ${oneLine(subject || "Request a Quote")} - ${oneLine(fullName, 60)}`,
+      html,
+      text,
+      replyTo: oneLine(email, 200),
+      attachments,
     });
+
+    if (!result.ok) {
+      return Response.json(
+        { error: "Something went wrong. Please try again." },
+        { status: 500 }
+      );
+    }
 
     return Response.json({ success: true }, { status: 200 });
   } catch (err) {

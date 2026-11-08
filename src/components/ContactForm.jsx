@@ -60,6 +60,15 @@ export default function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Hidden from visitors; only bots fill it in */}
+        <input
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         {/* CONTACT DETAILS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
@@ -178,7 +187,6 @@ export default function ContactForm() {
           <label className={labelClass}>Additional Project Requirements</label>
           <textarea
             name="message"
-            required
             placeholder="Tell us anything else about your project..."
             className={inputClass + " h-[120px] resize-none"}
           />

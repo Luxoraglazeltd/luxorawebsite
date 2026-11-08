@@ -7,22 +7,45 @@ import Link from "next/link";
 export default function NewsletterSignup({ compact = false }) {
   const [email, setEmail] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [status, setStatus] = useState("idle"); // idle | submitting | success
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
 
-  function handleSubmit(e) {
+  // The sign-up is emailed to the sales inbox by /api/newsletter
+  async function handleSubmit(e) {
     e.preventDefault();
     setStatus("submitting");
 
-    // TODO: not yet connected to a real mailing list provider.
-    // Once one is chosen (e.g. Mailchimp, Resend Audiences, Brevo),
-    // this will POST the email to that service instead of just logging it.
-    console.log("Newsletter signup (not yet connected):", email);
-
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          website: new FormData(e.target).get("website"), // hidden bot trap
+        }),
+      });
+      if (!res.ok) throw new Error("Sign-up failed");
       setStatus("success");
       setEmail("");
-    }, 600);
+    } catch {
+      setStatus("error");
+    }
   }
+
+  const botTrap = (
+    <input
+      name="website"
+      type="text"
+      tabIndex={-1}
+      autoComplete="off"
+      aria-hidden="true"
+      className="hidden"
+    />
+  );
+  const errorNote = status === "error" && (
+    <p className="text-[11px] text-red-400 mt-2">
+      Something went wrong. Please try again.
+    </p>
+  );
 
   // Compact (blog page): just a "Subscribe" link that reveals the email field when tapped
   if (compact) {
@@ -43,6 +66,7 @@ export default function NewsletterSignup({ compact = false }) {
 
         {showForm && status !== "success" && (
           <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-2 max-w-110 mx-auto pt-7 sm:pt-0 sm:pr-10">
+            {botTrap}
             <button
               type="button"
               onClick={() => { setShowForm(false); setEmail(""); }}
@@ -69,6 +93,7 @@ export default function NewsletterSignup({ compact = false }) {
             </button>
           </form>
         )}
+        {showForm && errorNote}
 
         {status === "success" && (
           <div className="flex items-center justify-center gap-3">
@@ -130,6 +155,7 @@ export default function NewsletterSignup({ compact = false }) {
           compact ? "gap-2" : "gap-3 sm:flex-row max-w-110"
         }`}
       >
+        {botTrap}
         <input
           type="email"
           required
@@ -156,6 +182,7 @@ export default function NewsletterSignup({ compact = false }) {
           Thanks for subscribing!
         </p>
       )}
+      {errorNote}
 
       <p className={`text-dim ${compact ? "text-[10px] mt-2.5" : "text-[11px] mt-4"}`}>
         By subscribing, you agree to our{" "}

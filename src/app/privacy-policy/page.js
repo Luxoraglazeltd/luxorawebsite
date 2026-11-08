@@ -107,9 +107,10 @@ export default function PrivacyPolicyPage() {
             <p className="text-[14px] text-silver leading-[1.9]">
               Request a Quote submissions, including any attached files, are
               sent directly to our team by email and are not stored on our
-              servers. Newsletter subscriptions are managed through a
-              third-party email service used solely for sending updates you
-              have subscribed to.
+              servers. Newsletter sign-ups are sent to our team by email, using
+              only your email address, so we can share updates with you.
+              Emails are delivered through an email service provider and are
+              not stored on our website.
             </p>
           </div>
 
