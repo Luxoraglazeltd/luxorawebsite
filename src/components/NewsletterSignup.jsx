@@ -47,7 +47,7 @@ export default function NewsletterSignup({ compact = false }) {
     </p>
   );
 
-  // Compact (blog page): just a "Subscribe" link that reveals the email field when tapped
+  // Compact (blog page): just a "Sign Up" link that reveals the email field when tapped
   if (compact) {
     return (
       <div className="text-center">
@@ -58,7 +58,7 @@ export default function NewsletterSignup({ compact = false }) {
             onClick={() => setShowForm(true)}
             className="bg-black text-white border border-gold/30 px-4 py-2 text-[10px] font-bold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:border-gold hover:text-gold"
           >
-            Subscribe
+            Sign Up
           </button>
           <p className="text-dim text-[10px]">For more updates</p>
           </div>
@@ -89,7 +89,7 @@ export default function NewsletterSignup({ compact = false }) {
               disabled={status === "submitting"}
               className="shrink-0 bg-black text-white border border-gold/30 px-4 py-2.5 text-[10px] leading-none font-bold tracking-[1.5px] uppercase cursor-pointer transition-all duration-300 hover:border-gold hover:text-gold disabled:opacity-50 whitespace-nowrap"
             >
-              Subscribe
+              Sign Up
             </button>
           </form>
         )}
@@ -97,7 +97,7 @@ export default function NewsletterSignup({ compact = false }) {
 
         {status === "success" && (
           <div className="flex items-center justify-center gap-3">
-            <p className="text-[11px] text-gold">Thanks for subscribing!</p>
+            <p className="text-[11px] text-gold">Thanks for signing up!</p>
             <button
               type="button"
               onClick={() => { setStatus("idle"); setShowForm(false); }}
@@ -111,7 +111,7 @@ export default function NewsletterSignup({ compact = false }) {
 
         {showForm && status !== "success" && (
           <p className="text-dim text-[9px] mt-2">
-            By subscribing, you agree to our{" "}
+            By signing up, you agree to our{" "}
             <Link href="/privacy-policy" className="text-gold hover:text-gold-lt underline">
               Privacy Policy
             </Link>

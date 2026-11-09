@@ -19,6 +19,51 @@ const UNUSED_QUERY = `*[_type in ["sanity.fileAsset", "sanity.imageAsset"] && co
 
 const USED_QUERY = 'count(*[references($id)])'
 
+// Drafts that were never published: no published copy exists, so they are not on the website.
+// (A draft of something already published is just an edit in progress, so it is not listed.)
+const DRAFTS_QUERY = `*[_id in path("drafts.**")
+  && _type in ["blogPost", "project", "galleryImage", "downloadDocument"]
+  && !defined(*[_id == string::split(^._id, "drafts.")[1]][0]._id)]
+  | order(_updatedAt desc) {
+    _id, _type, _updatedAt,
+    "label": coalesce(title, caption, name)
+  }`
+
+const TYPE_LABELS = {
+  blogPost: 'Blog post',
+  project: 'Project',
+  galleryImage: 'Gallery photo',
+  downloadDocument: 'Download document',
+}
+
+function DraftRow({draft, onDelete}) {
+  return (
+    <Card padding={3} radius={2} border>
+      <Flex align="center" gap={3}>
+        <Box flex={1} style={{minWidth: 0}}>
+          <Stack space={2}>
+            <Text size={1} weight="semibold" style={{wordBreak: 'break-word'}}>
+              {draft.label || 'Untitled'}
+            </Text>
+            <Text size={1} muted>
+              {TYPE_LABELS[draft._type] || draft._type}
+              {' · last edited '}
+              {new Date(draft._updatedAt).toLocaleDateString()}
+            </Text>
+          </Stack>
+        </Box>
+        <Button
+          icon={TrashIcon}
+          text="Delete"
+          tone="critical"
+          mode="ghost"
+          onClick={() => onDelete({...draft, kind: 'draft'})}
+        />
+      </Flex>
+    </Card>
+  )
+}
+
 function Row({asset, onDelete}) {
   const isImage = asset._type === 'sanity.imageAsset'
   return (
@@ -86,18 +131,19 @@ export function CleanupTool() {
   // 'raw' so unpublished drafts are included when checking whether a file is still in use
   const client = useClient({apiVersion}).withConfig({perspective: 'raw', useCdn: false})
   const [assets, setAssets] = useState(null)
+  const [drafts, setDrafts] = useState([])
   const [error, setError] = useState('')
-  const [pending, setPending] = useState(null) // the asset waiting for confirmation
+  const [pending, setPending] = useState(null) // the asset or draft waiting for confirmation
   const [working, setWorking] = useState(false)
   const [notice, setNotice] = useState('')
 
   // State is only set after the request returns, so this is safe to call from an effect
   const load = useCallback(
     () =>
-      client
-        .fetch(UNUSED_QUERY)
-        .then((list) => {
+      Promise.all([client.fetch(UNUSED_QUERY), client.fetch(DRAFTS_QUERY)])
+        .then(([list, draftList]) => {
           setAssets(list)
+          setDrafts(draftList)
           setError('')
         })
         .catch((err) => setError(err?.message || 'Could not load the list.')),
@@ -116,6 +162,14 @@ export function CleanupTool() {
     setWorking(true)
     setError('')
     try {
+      if (pending.kind === 'draft') {
+        await client.delete(pending._id)
+        setNotice(`Deleted the draft "${pending.label || 'Untitled'}".`)
+        setWorking(false)
+        setPending(null)
+        load()
+        return
+      }
       // Check again right now: someone may have attached it since the list loaded
       const stillUsedBy = await client.fetch(USED_QUERY, {id: pending._id})
       if (stillUsedBy > 0) {
@@ -143,8 +197,9 @@ export function CleanupTool() {
             <Button icon={RefreshIcon} text="Refresh" mode="ghost" onClick={load} />
           </Flex>
           <Text size={1} muted>
-            These files and photos are not used by any post, project, gallery photo or download,
-            including unpublished drafts. Deleting one frees storage and cannot be undone.
+            Drafts that were never published are not on the website. The files and photos below are
+            not used by any post, project, gallery photo or download, including unpublished drafts.
+            Deleting anything here cannot be undone.
           </Text>
         </Stack>
 
@@ -167,6 +222,18 @@ export function CleanupTool() {
         ) : (
           assets && (
             <>
+              <Stack space={3}>
+                <Text size={2} weight="bold">
+                  Drafts that were never published ({drafts.length})
+                </Text>
+                {drafts.length === 0 ? (
+                  <Text size={1} muted>
+                    Nothing to clean up here.
+                  </Text>
+                ) : (
+                  drafts.map((draft) => <DraftRow key={draft._id} draft={draft} onDelete={setPending} />)
+                )}
+              </Stack>
               <Section title="Files (PDFs and documents)" items={files} onDelete={setPending} />
               <Section title="Photos" items={photos} onDelete={setPending} />
             </>
@@ -194,10 +261,24 @@ export function CleanupTool() {
         >
           <Box padding={4}>
             <Stack space={3}>
-              <Text size={1} weight="semibold" style={{wordBreak: 'break-word'}}>
-                {pending.originalFilename || 'This file'} ({formatSize(pending.size)})
-              </Text>
-              <Text size={1}>This cannot be undone. Nothing on the website uses it.</Text>
+              {pending.kind === 'draft' ? (
+                <>
+                  <Text size={1} weight="semibold" style={{wordBreak: 'break-word'}}>
+                    {pending.label || 'Untitled'}
+                  </Text>
+                  <Text size={1}>
+                    This draft was never published, so it is not on the website. Deleting it
+                    cannot be undone.
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text size={1} weight="semibold" style={{wordBreak: 'break-word'}}>
+                    {pending.originalFilename || 'This file'} ({formatSize(pending.size)})
+                  </Text>
+                  <Text size={1}>This cannot be undone. Nothing on the website uses it.</Text>
+                </>
+              )}
             </Stack>
           </Box>
         </Dialog>
