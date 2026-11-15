@@ -21,6 +21,7 @@ export const SITE = {
     instagram: "https://www.instagram.com/luxoraglazesystem_limited",
     tiktok: "https://www.tiktok.com/@luxoraglaze",
     youtube: "https://www.youtube.com/@luxoraglaze_system",
+    linkedin: "https://www.linkedin.com/company/luxoraglazesystem-limited",
   },
   emails: ["info@luxoraglazesystem.com", "sales@luxoraglazesystem.com"],
   address: {
